@@ -37,8 +37,14 @@
           document.querySelectorAll('#content a[href], #content img[src]').forEach(el => {
             const attr = el.hasAttribute('href') ? 'href' : 'src';
             const url = el.getAttribute(attr);
-            // Skip absolute URLs, anchors, and already-rooted paths
-            if (url && !url.startsWith('http') && !url.startsWith('#') && !url.startsWith('/')) {
+            // Skip absolute URLs, anchors, rooted paths, and explicit schemes like mailto/data/javascript
+            if (
+              url &&
+              !/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url) &&
+              !url.startsWith('//') &&
+              !url.startsWith('#') &&
+              !url.startsWith('/')
+            ) {
               el.setAttribute(attr, baseDir + url);
             }
           });

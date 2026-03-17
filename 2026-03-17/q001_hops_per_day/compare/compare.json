@@ -1,10 +1,12 @@
 {
-  "generated_at": "2026-03-17T16:47:45Z",
+  "generated_at": "2026-03-17T20:20:04Z",
   "day": "2026-03-17",
   "question": "q001",
   "runs": [
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003",
+      "run_id": "run-003",
+      "run_number": 3,
       "question_id": "q001",
       "question_slug": "q001_hops_per_day",
       "question_title": "Highest daily hops for one aircraft on one flight number",
@@ -41,10 +43,34 @@
         "peak_threads": 34,
         "event_time": "2026-03-17 15:21:52",
         "type": "QueryFinish"
+      },
+      "artifacts": {
+        "query_sql": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql",
+          "published_path": "2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql"
+        },
+        "report_md": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md",
+          "published_path": "2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-17%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-003%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json",
+          "published_path": "2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json"
+        },
+        "visual_html": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html",
+          "published_path": "2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html"
+        }
       }
     },
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003",
+      "run_id": "run-003",
+      "run_number": 3,
       "question_id": "q001",
       "question_slug": "q001_hops_per_day",
       "question_title": "Highest daily hops for one aircraft on one flight number",
@@ -80,10 +106,34 @@
         "peak_threads": 34,
         "event_time": "2026-03-17 15:46:13",
         "type": "QueryFinish"
+      },
+      "artifacts": {
+        "query_sql": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql",
+          "published_path": "2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql"
+        },
+        "report_md": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md",
+          "published_path": "2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-17%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-003%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json",
+          "published_path": "2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json"
+        },
+        "visual_html": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html",
+          "published_path": "2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html"
+        }
       }
     },
     {
-      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004",
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003",
+      "run_id": "run-003",
+      "run_number": 3,
       "question_id": "q001",
       "question_slug": "q001_hops_per_day",
       "question_title": "Highest daily hops for one aircraft on one flight number",
@@ -120,6 +170,28 @@
         "peak_threads": 34,
         "event_time": "2026-03-17 16:35:49",
         "type": "QueryFinish"
+      },
+      "artifacts": {
+        "query_sql": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/query.sql",
+          "published_path": "2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/query.sql"
+        },
+        "report_md": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/report.md",
+          "published_path": "2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-17%2Fq001_hops_per_day%2Fgemini%2Fgemini-3.1-pro-preview%2Frun-003%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/result.json",
+          "published_path": "2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/result.json"
+        },
+        "visual_html": {
+          "local_path": "runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/visual.html",
+          "published_path": "2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-003/visual.html"
+        }
       }
     }
   ]
