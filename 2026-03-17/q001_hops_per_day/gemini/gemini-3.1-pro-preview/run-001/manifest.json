@@ -1,0 +1,43 @@
+{
+  "schema_version": "2",
+  "status": "ok",
+  "question_id": "q001",
+  "question_slug": "q001_hops_per_day",
+  "question_title": "Highest daily hops for one aircraft on one flight number",
+  "dataset": "ontime_v2",
+  "runner": "gemini",
+  "model": "gemini-3.1-pro-preview",
+  "cli_bin": "gemini",
+  "mcp_server_name": "altinity_ontime_demo",
+  "mcp_config_source": "datasets/ontime_v2/mcp.yaml",
+  "started_at": "2026-03-17T12:45:46.961037Z",
+  "finished_at": "2026-03-17T12:55:33.20804Z",
+  "duration_sec": 586,
+  "log_comment": "qforge|question=q001|run=run-001|runner=gemini|model=gemini-3.1-pro-preview|phase=full",
+  "query_sha256": "d22567fe64a1e945038821412b8e690a51a70e5028283d41ec2cc5a934858253",
+  "result_row_count": 10,
+  "phases": {
+    "sql_generation": "ok",
+    "sql_execution": "ok",
+    "presentation_generation": "ok",
+    "presentation_render": "ok"
+  },
+  "artifacts": {
+    "prompt_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/prompt.sql.md",
+    "answer_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/answer.sql.raw.md",
+    "query_sql": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/query.sql",
+    "result_tsv": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/result.tsv",
+    "result_json": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/result.json",
+    "manifest_json": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/manifest.json",
+    "stdout_log": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/stdout.log",
+    "stderr_log": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/stderr.log",
+    "prompt_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/prompt.presentation.md",
+    "answer_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/answer.presentation.raw.md",
+    "report_template_md": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/report.template.md",
+    "report_md": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/report.md",
+    "visual_html": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/visual.html"
+  },
+  "metadata": {
+    "execution_response_bytes": "1761"
+  }
+}
