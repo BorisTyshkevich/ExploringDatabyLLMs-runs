@@ -104,6 +104,8 @@ jobs:
               ul { line-height: 1.8; }
               .visual-link { background: #1f8a70; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; }
               .visual-link:hover { background: #167a62; }
+              .report-link { background: #3c88b5; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; margin-left: 0.2rem; }
+              .report-link:hover { background: #2d6a8a; }
             </style>
           </head>
           <body>
@@ -130,14 +132,27 @@ jobs:
               
               echo "<br>" >> index.html
               
-              # List visual.html for each provider
-              for provider_path in "${qdir}"*/*/run-*/visual.html; do
-                [ -f "$provider_path" ] || continue
-                rel_path="${provider_path#$datedir}"
+              # List visual.html and report.md for each provider
+              for run_dir in "${qdir}"*/*/run-*/; do
+                [ -d "$run_dir" ] || continue
                 # Extract provider/model from path
+                rel_path="${run_dir#$datedir}"
                 provider=$(echo "$rel_path" | cut -d'/' -f2)
                 model=$(echo "$rel_path" | cut -d'/' -f3)
-                echo "      <a class=\"visual-link\" href=\"$provider_path\">$provider/$model</a> " >> index.html
+
+                echo "      <span><strong>$provider/$model</strong> " >> index.html
+
+                # Link visual.html if exists
+                if [ -f "${run_dir}visual.html" ]; then
+                  echo "<a class=\"visual-link\" href=\"${run_dir}visual.html\">📊</a>" >> index.html
+                fi
+
+                # Link report.md if exists
+                if [ -f "${run_dir}report.md" ]; then
+                  echo "<a class=\"report-link\" href=\"md.html?file=${run_dir}report.md\">📄</a>" >> index.html
+                fi
+
+                echo "</span> " >> index.html
               done
               
               echo "    </li>" >> index.html
