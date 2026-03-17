@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-03-17T13:59:52Z",
+  "generated_at": "2026-03-17T16:37:30Z",
   "day": "2026-03-17",
   "question": "q001",
   "runs": [
     {
-      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002",
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003",
       "question_id": "q001",
       "question_slug": "q001_hops_per_day",
       "question_title": "Highest daily hops for one aircraft on one flight number",
@@ -18,33 +18,33 @@
         "presentation_generation": "ok",
         "presentation_render": "ok"
       },
-      "started_at": "2026-03-17T13:14:05.36989Z",
-      "finished_at": "2026-03-17T13:17:48.950713Z",
-      "duration_sec": 223,
-      "query_sha256": "2aba90c90d3c1fe834c52255a1176974b9cd3fbd001cb804584ae915588bdea3",
+      "started_at": "2026-03-17T15:20:44.514693Z",
+      "finished_at": "2026-03-17T15:24:11.761397Z",
+      "duration_sec": 207,
+      "query_sha256": "2492ca7cdad0c01187e9465a86381be4d1fd58a471b3aa541cddd1cc80ca4f7a",
       "row_count": 10,
       "columns": [
-        "Tail_Number",
-        "Flight_Number_Reporting_Airline",
-        "IATA_CODE_Reporting_Airline",
-        "FlightDate",
+        "Aircraft ID",
+        "Flight Number",
+        "Carrier",
+        "Date",
         "Hops",
         "Route"
       ],
       "metrics": {
-        "query_duration_ms": 7480,
+        "query_duration_ms": 18630,
         "read_rows": 193061941,
-        "read_bytes": 2650424650,
+        "read_bytes": 2650424488,
         "result_rows": 10,
         "result_bytes": 30512,
-        "memory_usage": 45371977157,
+        "memory_usage": 37714822183,
         "peak_threads": 34,
-        "event_time": "2026-03-17 13:15:21",
+        "event_time": "2026-03-17 15:21:52",
         "type": "QueryFinish"
       }
     },
     {
-      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001",
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003",
       "question_id": "q001",
       "question_slug": "q001_hops_per_day",
       "question_title": "Highest daily hops for one aircraft on one flight number",
@@ -58,10 +58,10 @@
         "presentation_generation": "ok",
         "presentation_render": "ok"
       },
-      "started_at": "2026-03-17T13:42:31.037495Z",
-      "finished_at": "2026-03-17T13:49:35.515435Z",
-      "duration_sec": 424,
-      "query_sha256": "fdb753e3f6690ae71d054642c503de28f8b36c54eb805aeb02f2233dc20163c1",
+      "started_at": "2026-03-17T15:44:57.924615Z",
+      "finished_at": "2026-03-17T15:53:54.969747Z",
+      "duration_sec": 537,
+      "query_sha256": "77f74fe855638479e4a89d861b7fa52eff665dc72219b38051598b1927abed60",
       "row_count": 10,
       "columns": [
         "Aircraft ID",
@@ -71,54 +71,14 @@
         "Route"
       ],
       "metrics": {
-        "query_duration_ms": 7648,
+        "query_duration_ms": 7885,
         "read_rows": 193061941,
-        "read_bytes": 2654461294,
+        "read_bytes": 2654458009,
         "result_rows": 10,
-        "result_bytes": 28464,
-        "memory_usage": 48798510426,
+        "result_bytes": 26416,
+        "memory_usage": 48655491312,
         "peak_threads": 34,
-        "event_time": "2026-03-17 13:44:15",
-        "type": "QueryFinish"
-      }
-    },
-    {
-      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001",
-      "question_id": "q001",
-      "question_slug": "q001_hops_per_day",
-      "question_title": "Highest daily hops for one aircraft on one flight number",
-      "dataset": "ontime_v2",
-      "runner": "gemini",
-      "model": "gemini-3.1-pro-preview",
-      "status": "ok",
-      "phases": {
-        "sql_generation": "ok",
-        "sql_execution": "ok",
-        "presentation_generation": "ok",
-        "presentation_render": "ok"
-      },
-      "started_at": "2026-03-17T12:45:46.961037Z",
-      "finished_at": "2026-03-17T12:55:33.20804Z",
-      "duration_sec": 586,
-      "query_sha256": "d22567fe64a1e945038821412b8e690a51a70e5028283d41ec2cc5a934858253",
-      "row_count": 10,
-      "columns": [
-        "TailNum",
-        "FlightNum",
-        "Carrier",
-        "FlightDate",
-        "Hops",
-        "Route"
-      ],
-      "metrics": {
-        "query_duration_ms": 7572,
-        "read_rows": 230307587,
-        "read_bytes": 2877678427,
-        "result_rows": 10,
-        "result_bytes": 30512,
-        "memory_usage": 44509935307,
-        "peak_threads": 34,
-        "event_time": "2026-03-17 12:52:15",
+        "event_time": "2026-03-17 15:46:13",
         "type": "QueryFinish"
       }
     }

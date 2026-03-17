@@ -22,39 +22,34 @@ Question files:
 
 Run directories:
 
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003
 
 Query SQL files:
 
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002/query.sql
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/query.sql
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql
 
 Report Markdown files:
 
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002/report.md
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001/report.md
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/report.md
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md
 
 Visual HTML files:
 
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002/visual.html
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/visual.html
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html
 
 Result JSON files:
 
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-002/result.json
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-001/result.json
-- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-001/result.json
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json
 
 Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-17T13:59:52Z`
+- Generated: `2026-03-17T16:37:30Z`
 - Day: `2026-03-17`
 - Question: `q001`
 
@@ -62,14 +57,13 @@ Deterministic compare summary:
 
 - Status: all runs succeeded.
 - Row counts: all runs returned 10 rows.
-- Fastest successful run: claude/opus at 7.48 s.
+- Fastest successful run: codex/gpt-5.4 at 7.88 s.
 - Lowest read volume: claude/opus at 193,061,941 rows.
-- Lowest memory usage: gemini/gemini-3.1-pro-preview at 41.5 GiB.
+- Lowest memory usage: claude/opus at 35.1 GiB.
 | runner | model | status | rows | duration | read rows | memory | warnings |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| claude | opus | ok | 10 | 7.48 s | 193,061,941 | 42.3 GiB | 0 |
-| codex | gpt-5.4 | ok | 10 | 7.65 s | 193,061,941 | 45.4 GiB | 0 |
-| gemini | gemini-3.1-pro-preview | ok | 10 | 7.57 s | 230,307,587 | 41.5 GiB | 0 |
+| claude | opus | ok | 10 | 18.63 s | 193,061,941 | 35.1 GiB | 0 |
+| codex | gpt-5.4 | ok | 10 | 7.88 s | 193,061,941 | 45.3 GiB | 0 |
 
 Your job:
 
