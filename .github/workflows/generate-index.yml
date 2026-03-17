@@ -152,7 +152,7 @@ jobs:
                   echo "<a class=\"report-link\" href=\"md.html?file=${run_dir}report.md\">📄</a>" >> index.html
                 fi
 
-                echo "</span> " >> index.html
+                echo "</span><br>" >> index.html
               done
               
               echo "    </li>" >> index.html
