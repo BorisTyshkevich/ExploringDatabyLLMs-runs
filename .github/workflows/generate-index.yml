@@ -1,0 +1,147 @@
+name: Generate Directory Indexes
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate index.html files
+        run: |
+          # Generate index for each directory
+          generate_index() {
+            local dir="$1"
+            local index_file="$dir/index.html"
+            local title=$(basename "$dir")
+            
+            echo "<!DOCTYPE html>
+          <html>
+          <head>
+            <title>$title</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #f6fafc; }
+              h1 { color: #0e3a52; border-bottom: 2px solid #3c88b5; padding-bottom: 0.5rem; }
+              a { color: #3c88b5; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              ul { list-style: none; padding: 0; }
+              li { padding: 0.4rem 0; }
+              li a { display: inline-block; padding: 0.3rem 0.6rem; background: white; border-radius: 4px; border: 1px solid #e0e0e0; }
+              li a:hover { background: #eaf3f8; }
+              .dir::before { content: '📁 '; }
+              .html::before { content: '📊 '; }
+              .md::before { content: '📄 '; }
+              .json::before { content: '📋 '; }
+              .sql::before { content: '🔍 '; }
+              .up { margin-bottom: 1rem; }
+            </style>
+          </head>
+          <body>
+            <h1>$title</h1>" > "$index_file"
+            
+            # Add parent link if not root
+            if [ "$dir" != "." ]; then
+              echo '  <p class="up"><a href="../index.html">⬆️ Parent Directory</a></p>' >> "$index_file"
+            fi
+            
+            echo "  <ul>" >> "$index_file"
+            
+            # List directories first
+            for item in "$dir"/*/; do
+              [ -d "$item" ] || continue
+              [[ "$(basename "$item")" == .* ]] && continue
+              local name=$(basename "$item")
+              echo "    <li><a class=\"dir\" href=\"$name/index.html\">$name/</a></li>" >> "$index_file"
+            done
+            
+            # Then files (prioritize visual.html, report.md, compare_report.md)
+            for pattern in "visual.html" "compare_report.md" "report.md" "compare.json" "query.sql" "manifest.json"; do
+              for item in "$dir"/$pattern; do
+                [ -f "$item" ] || continue
+                local name=$(basename "$item")
+                local ext="${name##*.}"
+                echo "    <li><a class=\"$ext\" href=\"$name\">$name</a></li>" >> "$index_file"
+              done
+            done
+            
+            echo "  </ul>
+          </body>
+          </html>" >> "$index_file"
+          }
+          
+          # Find all directories and generate indexes
+          find . -type d ! -path './.git*' | while read dir; do
+            generate_index "$dir"
+          done
+          
+          # Create root index with better structure
+          cat > index.html << 'ROOTEOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>ExploringDatabyLLMs Runs</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: linear-gradient(#eaf3f8, #f6fafc); min-height: 100vh; }
+              h1 { color: #0e3a52; }
+              h2 { color: #3c88b5; margin-top: 2rem; }
+              a { color: #3c88b5; }
+              .date-section { background: white; padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+              ul { line-height: 1.8; }
+              .visual-link { background: #1f8a70; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; }
+              .visual-link:hover { background: #167a62; }
+            </style>
+          </head>
+          <body>
+            <h1>🔬 ExploringDatabyLLMs Experiment Runs</h1>
+            <p>LLM-generated SQL analytics dashboards comparing Claude, GPT, and Gemini.</p>
+          ROOTEOF
+          
+          # Add sections for each date
+          for datedir in $(ls -d */ 2>/dev/null | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -r); do
+            date=$(basename "$datedir" /)
+            echo "  <div class=\"date-section\">" >> index.html
+            echo "  <h2>$date</h2>" >> index.html
+            echo "  <ul>" >> index.html
+            
+            for qdir in "$datedir"*/; do
+              [ -d "$qdir" ] || continue
+              qname=$(basename "$qdir" /)
+              echo "    <li><strong>$qname</strong>" >> index.html
+              
+              # Check for compare report
+              if [ -f "${qdir}compare_report.md" ]; then
+                echo " — <a href=\"${qdir}compare_report.md\">Compare Report</a>" >> index.html
+              fi
+              
+              echo "<br>" >> index.html
+              
+              # List visual.html for each provider
+              for provider_path in "${qdir}"*/*/run-*/visual.html; do
+                [ -f "$provider_path" ] || continue
+                rel_path="${provider_path#$datedir}"
+                # Extract provider/model from path
+                provider=$(echo "$rel_path" | cut -d'/' -f2)
+                model=$(echo "$rel_path" | cut -d'/' -f3)
+                echo "      <a class=\"visual-link\" href=\"$provider_path\">$provider/$model</a> " >> index.html
+              done
+              
+              echo "    </li>" >> index.html
+            done
+            
+            echo "  </ul>" >> index.html
+            echo "  </div>" >> index.html
+          done
+          
+          echo "</body></html>" >> index.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto-generate index.html files"
+          git push
