@@ -24,38 +24,43 @@ Run directories:
 
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004
 
 Query SQL files:
 
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/query.sql
 
 Report Markdown files:
 
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/report.md
 
 Visual HTML files:
 
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/visual.html
 
 Result JSON files:
 
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json
 - /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json
+- /Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/result.json
 
 Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-17T16:37:30Z`
+- Generated: `2026-03-17T16:47:45Z`
 - Day: `2026-03-17`
 - Question: `q001`
 
 ## q001: Highest daily hops for one aircraft on one flight number
 
-- Status: all runs succeeded.
+- Status: 1 run(s) did not finish cleanly: gemini/gemini-3.1-pro-preview.
 - Row counts: all runs returned 10 rows.
 - Fastest successful run: codex/gpt-5.4 at 7.88 s.
 - Lowest read volume: claude/opus at 193,061,941 rows.
@@ -64,6 +69,7 @@ Deterministic compare summary:
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | claude | opus | ok | 10 | 18.63 s | 193,061,941 | 35.1 GiB | 0 |
 | codex | gpt-5.4 | ok | 10 | 7.88 s | 193,061,941 | 45.3 GiB | 0 |
+| gemini | gemini-3.1-pro-preview | partial | 10 | 15.53 s | 230,307,587 | 48.9 GiB | 0 |
 
 Your job:
 

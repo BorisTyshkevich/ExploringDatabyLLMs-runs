@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-17T16:37:30Z",
+  "generated_at": "2026-03-17T16:47:45Z",
   "day": "2026-03-17",
   "question": "q001",
   "runs": [
@@ -79,6 +79,46 @@
         "memory_usage": 48655491312,
         "peak_threads": 34,
         "event_time": "2026-03-17 15:46:13",
+        "type": "QueryFinish"
+      }
+    },
+    {
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004",
+      "question_id": "q001",
+      "question_slug": "q001_hops_per_day",
+      "question_title": "Highest daily hops for one aircraft on one flight number",
+      "dataset": "ontime_v2",
+      "runner": "gemini",
+      "model": "gemini-3.1-pro-preview",
+      "status": "partial",
+      "phases": {
+        "sql_generation": "ok",
+        "sql_execution": "ok",
+        "presentation_generation": "ok",
+        "presentation_render": "failed"
+      },
+      "started_at": "2026-03-17T16:25:28.505309Z",
+      "finished_at": "2026-03-17T16:38:41.493178Z",
+      "duration_sec": 792,
+      "query_sha256": "0ac7ff9c12e8e720cc260c62d08d33c58218880aa14e05a13e087e7e61449c88",
+      "row_count": 10,
+      "columns": [
+        "Aircraft ID",
+        "Flight Number",
+        "Carrier",
+        "Date",
+        "Route",
+        "Actual Departure Times"
+      ],
+      "metrics": {
+        "query_duration_ms": 15533,
+        "read_rows": 230307587,
+        "read_bytes": 2763997654,
+        "result_rows": 10,
+        "result_bytes": 29264,
+        "memory_usage": 52466696434,
+        "peak_threads": 34,
+        "event_time": "2026-03-17 16:35:49",
         "type": "QueryFinish"
       }
     }

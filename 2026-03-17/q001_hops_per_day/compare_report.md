@@ -2,82 +2,73 @@
 
 ## Question
 
-**ID:** q001  
-**Slug:** q001_hops_per_day  
-**Title:** Highest daily hops for one aircraft on one flight number
-
-Find the highest number of hops per day for a single aircraft using the same flight number. Report Aircraft ID, Flight Number, Carrier, Date, Route. For the longest trip, show the actual departure time from each origin. Find the top 10 longest and most recent itineraries.
+`q001` asks for the highest number of same-flight-number hops completed by a single aircraft in one day, returning the top 10 longest and most recent itineraries with route detail and actual departure ordering, per the benchmark prompt in [prompt.md](/Users/bvt/work/ExploringDatabyLLMs/prompts/q001_hops_per_day/prompt.md) and compare contract in [compare.yaml](/Users/bvt/work/ExploringDatabyLLMs/prompts/q001_hops_per_day/compare.yaml).
 
 ## Why this question is useful
 
-This question tests an LLM's ability to:
-
-1. Aggregate flight legs into itineraries using grouping by tail number, flight number, carrier, and date
-2. Construct chronologically ordered route strings with embedded departure times
-3. Handle array functions for sorting and concatenation
-4. Apply multi-column ordering (hop count descending, then date descending) for tie-breaking
-
-The pattern reveals whether the model can reason about flight connectivity and produce human-readable route sequences from raw leg data.
+This question stresses whether a system can reconstruct a same-day multi-leg itinerary correctly instead of just counting rows. It combines grouping by aircraft, flight number, carrier, and date with ordered route assembly, and the prompt explicitly requires the route text to preserve full leg order and final destination. That makes it useful for testing both SQL correctness and output-shaping discipline.
 
 ## Experiment setup
 
-- **Day:** 2026-03-17
-- **Dataset:** ontime_v2
-- **Runners compared:**
-  - claude/opus (run-003)
-  - codex/gpt-5.4 (run-003)
-- **Compare contract key columns:** Aircraft ID, Flight Number, Carrier, Date
-- **Compare contract value columns:** Hops (exact), Route (exact)
+The primary structured source was [compare.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/compare/compare.json). I also verified each run’s SQL, result JSON, report markdown, and visual HTML:
+
+- Claude: [query.sql](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql), [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json), [report.md](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md), [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html)
+- Codex: [query.sql](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql), [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json), [report.md](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md), [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html)
+- Gemini: [query.sql](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/query.sql), [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/result.json), [report.md](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/report.md), [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/visual.html)
 
 ## Result summary
 
-Both runs succeeded and returned **10 rows** each. The same 10 itineraries appear in both result sets with **identical key values** (Aircraft ID, Flight Number, Carrier, Date). All 10 rows have a hop count of **8**.
+All three runs returned 10 rows, and the 10 `(Aircraft ID, Flight Number, Carrier, Date)` keys match exactly across Claude, Codex, and Gemini. The most recent top itinerary is the same in every run: `N957WN`, flight `366`, carrier `WN`, date `2024-12-01`, with an 8-leg route from `ISP` to `SEA`.
 
-**Critical difference:** Claude/opus outputs an explicit `Hops` column (value: 8 for all rows). Codex/gpt-5.4 omits the `Hops` column entirely—hop count must be derived by parsing the Route string.
-
-Route string formats differ cosmetically:
-- Claude: `05:43 ISP → 08:10 BWI → ... → SEA` (arrow separator, final destination appended without time)
-- Codex: `05:43 ISP->BWI | 08:10 BWI->MYR | ... | 20:41 OAK->SEA` (pipe separator, each leg shows origin->dest)
-
-Both formats contain the same airports and departure times; semantic content is equivalent.
+Using the explicit `Hops` column in Claude’s result and the verified leg/departure counts in the other two outputs, the maximum hop count is `8`. The top 10 rows contain 4 distinct route signatures: one appears 4 times (`CLE-BNA-PNS-HOU-MCI-PHX-BUR-OAK-DEN`), one appears 3 times (`MSY-ATL-CMH-BWI-RDU-BNA-DTW-MDW-LAX`), one appears 2 times (`ELP-DAL-LIT-ATL-RIC-MDW-MCI-PHX-SAN`), and one appears once (`ISP-BWI-MYR-BNA-VPS-DAL-LAS-OAK-SEA`).
 
 ## Full SQL artifacts
 
-| Runner | Model | Query SHA256 (first 12) | Path |
-|--------|-------|-------------------------|------|
-| claude | opus | `2492ca7cdad0` | [query.sql](runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql) |
-| codex | gpt-5.4 | `77f74fe85563` | [query.sql](runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql) |
+The full SQL is best read directly in the saved artifacts:
+
+- [Claude SQL](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/query.sql)
+- [Codex SQL](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/query.sql)
+- [Gemini SQL](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/query.sql)
 
 ## Real output differences
 
-### Column presence
+The row identities and route semantics are the same across all three result sets. After normalizing each route string to an airport sequence, every row’s airport path matches exactly across Claude, Codex, and Gemini.
 
-| Column | claude/opus | codex/gpt-5.4 |
-|--------|-------------|---------------|
-| Aircraft ID | ✓ | ✓ |
-| Flight Number | ✓ | ✓ |
-| Carrier | ✓ | ✓ |
-| Date | ✓ | ✓ |
-| Hops | ✓ | ✗ |
-| Route | ✓ | ✓ |
+The real differences are in schema and formatting:
 
-### Row-by-row key match
+- Claude returns the contract-shaped columns `Aircraft ID, Flight Number, Carrier, Date, Hops, Route` in [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/result.json).
+- Codex omits `Hops` and formats `Route` as time-stamped leg pairs separated by `|`, for example `05:43 ISP->BWI | ... | 20:41 OAK->SEA`, in [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/result.json).
+- Gemini omits `Hops`, shortens `Route` to airport codes only such as `ISP-BWI-MYR-BNA-VPS-DAL-LAS-OAK-SEA`, and adds `Actual Departure Times` as an array, in [result.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/result.json).
 
-All 10 rows match on the compare contract key columns (Aircraft ID, Flight Number, Carrier, Date). Both result sets identify the same itineraries in the same order:
+So the differences are localized to output shape and route-string rendering, not to which 10 itineraries were found.
 
-| Rank | Aircraft ID | Flight Number | Carrier | Date |
-|------|-------------|---------------|---------|------|
-| 1 | N957WN | 366 | WN | 2024-12-01 |
-| 2 | N7835A | 3149 | WN | 2024-02-18 |
-| 3 | N429WN | 3149 | WN | 2024-01-28 |
-| 4 | N228WN | 3149 | WN | 2024-01-21 |
-| 5 | N569WN | 3149 | WN | 2024-01-14 |
-| 6 | N7742B | 154 | WN | 2023-04-30 |
-| 7 | N929WN | 154 | WN | 2023-04-16 |
-| 8 | N8631A | 2787 | WN | 2022-10-23 |
-| 9 | N8809L | 2787 | WN | 2022-10-02 |
-| 10 | N8811L | 2787 | WN | 2022-09-25 |
+## SQL comparison
 
-### Route string comparison (row 1 example)
+Claude’s SQL uses two CTEs, explicitly computes `count() AS Hops`, sorts grouped legs by `DepTime`, and renders the route as a timestamped airport chain ending with the final destination. It filters `Cancelled = 0`, `DepTime IS NOT NULL`, and nonempty tail number.
 
-**Claude/opus:**
+Codex’s SQL is a single grouped query with a `WITH groupArray(...) AS legs` expression. It also sorts legs chronologically, but it renders each leg as `HH:MM ORG->DST`, omits `Hops` from the `SELECT`, and adds `Diverted = 0` plus a nonempty flight-number filter.
+
+Gemini’s saved `query.sql` contains two statements: an airport-enrichment lookup against `default.airports_bts`, then the main itinerary query. The main query groups by `Reporting_Airline`, emits airport-only `Route` text plus `Actual Departure Times`, omits both `Hops` and cancellation/diversion filters, and does not include times directly in the route string.
+
+## Presentation artifacts
+
+The markdown reports mirror those result-shape differences:
+
+- [Claude report](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/report.md) includes `Hops` and reproduces the fully formatted route chain.
+- [Codex report](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/report.md) drops `Hops` and presents the route as pipe-separated legs.
+- [Gemini report](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/report.md) adds `Actual Departure Times` and keeps the route as airport-code chains.
+
+All three [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/claude/opus/run-003/visual.html), [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/codex/gpt-5.4/run-003/visual.html), and [visual.html](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-004/visual.html) contain a Leaflet-based “Lead Itinerary Map” and `default.airports_bts` enrichment logic. The difference is execution status: [compare.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/compare/compare.json) marks Claude and Codex as `presentation_render: ok`, but Gemini as `presentation_render: failed`, so Gemini’s HTML artifact exists but its rendered output did not complete cleanly in this run.
+
+## Execution stats
+
+Per verified query-log metrics in [compare.json](/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q001_hops_per_day/compare/compare.json):
+
+- Codex was the fastest successful run at `7.88 s`, versus `18.63 s` for Claude and `15.53 s` for Gemini.
+- Claude and Codex both read `193,061,941` rows; Gemini read `230,307,587`, which is `37,245,646` more rows, about `19.3%` higher.
+- Claude used the least memory at `35.1 GiB`; Codex used `45.3 GiB` (`+10.2 GiB`), and Gemini used `48.9 GiB` (`+13.7 GiB` versus Claude).
+- Gemini is the only run with non-clean status: overall `partial`, specifically `presentation_render: failed`.
+
+## Takeaway
+
+For `q001`, the substantive query result is stable across all three systems: same 10 keys, same lead itinerary, same route sequences after normalization, and the same maximum of 8 hops. The benchmark differences on this day are not about which itineraries were discovered; they are about contract adherence and presentation shape. Claude is the only run that returns the requested `Hops` field directly, Codex is the fastest but still omits `Hops`, and Gemini returns the same itinerary set in a different schema while also failing the final presentation render step.

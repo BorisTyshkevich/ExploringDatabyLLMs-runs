@@ -1,3 +1,4 @@
+SELECT iata AS IATA, lat AS Lat, lon AS Lon, city AS City, name AS Name FROM default.airports_bts WHERE iata IN ('ISP','BWI','MYR','BNA','VPS','DAL','LAS','OAK','SEA');
 SELECT
     Tail_Number AS `Aircraft ID`,
     Flight_Number_Reporting_Airline AS `Flight Number`,
