@@ -26,9 +26,23 @@
     const params = new URLSearchParams(window.location.search);
     const file = params.get('file');
     if (file) {
+      // Get base directory for relative link resolution
+      const baseDir = file.substring(0, file.lastIndexOf('/') + 1);
       fetch(file)
         .then(r => r.ok ? r.text() : Promise.reject('File not found'))
-        .then(md => { document.getElementById('content').innerHTML = marked.parse(md); document.title = file.split('/').pop(); })
+        .then(md => {
+          document.getElementById('content').innerHTML = marked.parse(md);
+          document.title = file.split('/').pop();
+          // Fix relative links - rewrite href/src to be relative to markdown file's directory
+          document.querySelectorAll('#content a[href], #content img[src]').forEach(el => {
+            const attr = el.hasAttribute('href') ? 'href' : 'src';
+            const url = el.getAttribute(attr);
+            // Skip absolute URLs, anchors, and already-rooted paths
+            if (url && !url.startsWith('http') && !url.startsWith('#') && !url.startsWith('/')) {
+              el.setAttribute(attr, baseDir + url);
+            }
+          });
+        })
         .catch(e => { document.getElementById('content').innerHTML = '<p>Error: ' + e + '</p>'; });
     } else {
       document.getElementById('content').innerHTML = '<p>No file specified. Use ?file=path/to/file.md</p>';
