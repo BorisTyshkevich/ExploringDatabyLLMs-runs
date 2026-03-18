@@ -1,6 +1,3 @@
-Now I have enough information. Let me compile the final compare report.
-
-```markdown
 # q003 Experiment Note
 
 ## Question
@@ -167,4 +164,3 @@ The differences observed are:
 3. **Query efficiency:** codex and gemini read fewer rows, suggesting more selective filter placement
 
 For practical use, all outputs are interchangeable. The QualifyingMonths difference in monthly_trend rows is cosmetic since this field is primarily meaningful for hotspot_summary rows. The rounding differences are within acceptable floating-point variation and would round identically if displayed to 1 decimal place.
-```
