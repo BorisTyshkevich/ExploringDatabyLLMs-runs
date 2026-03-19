@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+runs_root="$(cd "${script_dir}/.." && pwd)"
+code_root_default="$(cd "${runs_root}/../ExploringDatabyLLMs" && pwd)"
+code_root="${QFORGE_CODE_ROOT:-$code_root_default}"
+
+export QFORGE_RUN_ROOT="$runs_root"
+export QFORGE_CODE_ROOT="$code_root"
+
+tmp_bin="$(mktemp "${TMPDIR:-/tmp}/qforge.XXXXXX")"
+cleanup() {
+  rm -f "$tmp_bin"
+}
+trap cleanup EXIT
+
+(
+  cd "$code_root"
+  go build -o "$tmp_bin" ./cmd/qforge
+)
+
+"$tmp_bin" "$@"
