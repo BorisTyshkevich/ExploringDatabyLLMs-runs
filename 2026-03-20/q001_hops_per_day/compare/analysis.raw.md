@@ -1,8 +1,7 @@
-The comparison report has been written to `compare_report.md`. Here's the key finding:
+The `compare_report.md` has been written. It covers all 11 required sections based on verified local artifacts:
 
-**All four runs agree on the core answer** — 8 max hops, all Southwest Airlines, same 10 tuples — so the differences are in SQL strategy, formatting, and performance:
-
-- **Claude opus** was fastest at query execution (4.37 s) and lowest memory (24.9 GiB)
-- **Claude sonnet** had the most efficient scan (193M rows) via a single-pass array strategy
-- **Codex gpt-5.4** runs added extra analytic columns but were 5–7× slower in query time, and both failed at visual rendering (`partial` status)
-- Report quality: Claude runs produced richer narrative; codex reports were more templated
+- **All 4 runs agree** on the same 10 rows (8 hops, all Southwest WN)
+- **Differences** are cosmetic: column naming, route formatting, extra analytic columns in codex runs
+- **SQL strategies** range from sonnet's compact single-CTE (42 lines, 193M rows) to codex run-002's UTC-offset join (102 lines, 772M rows)
+- **Performance**: Claude runs were 4-7x faster in query execution and 3-5x faster in SQL generation
+- **Presentation**: Both Claude runs rendered visuals successfully with substantive narrative; both codex runs failed visual render and produced template-like report text
