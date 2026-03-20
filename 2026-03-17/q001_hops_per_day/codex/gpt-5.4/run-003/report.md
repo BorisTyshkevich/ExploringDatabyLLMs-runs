@@ -1,17 +1,15 @@
 # Highest daily hops for one aircraft on one flight number
 
-Generated at `2026-03-17T15:46:13Z`. Returned `10` rows with columns `Aircraft ID, Flight Number, Carrier, Date, Route`.
+Generated at `2026-03-17T15:46:13Z`.
+
+The result set contains 10 rows with columns Aircraft ID, Flight Number, Carrier, Date, Route.
 
 - Rows returned: 10
 - Generated at: 2026-03-17T15:46:13Z
 - Columns: Aircraft ID, Flight Number, Carrier, Date, Route
 - First row snapshot: Aircraft ID=N957WN, Flight Number=366, Carrier=WN
 
-The lead row in the ranked result set represents the maximum daily hop count observed for one aircraft operating one flight number on one date. Use exact route-string repeats in the returned rows to assess whether that maximum looks like a recurring operating pattern or a one-off itinerary.
-
-Because the saved query orders tied maximum-hop rows by `Date` descending and then by latest departure time descending, the first rendered row is the single most recent itinerary among the maximum-hop cases. Read its carrier, flight number, date, and full route directly from the top row of the result table.
-
-Compare the remaining rows for repeated route strings, shared prefixes, and shared end-of-day segments to identify route repetition or clustering across the top 10 longest itineraries.
+Read the ranking as the maximum observed daily hop pattern for one aircraft on one flight number. Focus on whether the top-ranked pattern appears repeatedly or as a one-off, identify the most recent itinerary among the maximum-hop rows by carrier, flight number, date, and full route, and note any route repetition or clustering visible across the returned top 10 itineraries.
 
 | Aircraft ID | Flight Number | Carrier | Date | Route |
 | --- | --- | --- | --- | --- |

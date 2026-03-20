@@ -19,26 +19,27 @@
   "phases": {
     "sql_generation": "ok",
     "sql_execution": "ok",
-    "presentation_generation": "ok",
+    "presentation_generation": "failed",
     "presentation_render": "failed"
   },
   "artifacts": {
-    "prompt_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/prompt.sql.md",
-    "answer_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/answer.sql.raw.md",
-    "query_sql": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/query.sql",
-    "result_tsv": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/result.tsv",
-    "result_json": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/result.json",
-    "manifest_json": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/manifest.json",
-    "stdout_log": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/stdout.log",
-    "stderr_log": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/stderr.log",
-    "prompt_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/prompt.presentation.md",
-    "answer_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/answer.presentation.raw.md",
-    "report_template_md": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/report.template.md",
-    "report_md": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/report.md",
-    "visual_html": "/Users/bvt/work/ExploringDatabyLLMs/runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/visual.html"
+    "prompt_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/prompt.sql.md",
+    "answer_sql_raw": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/answer.sql.raw.md",
+    "query_sql": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/query.sql",
+    "result_tsv": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/result.tsv",
+    "result_json": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/result.json",
+    "manifest_json": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/manifest.json",
+    "stdout_log": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/stdout.log",
+    "stderr_log": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/stderr.log",
+    "prompt_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/prompt.presentation.md",
+    "answer_presentation_raw": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/answer.presentation.raw.md",
+    "report_template_md": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/report.template.md",
+    "report_md": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/report.md",
+    "visual_html": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-17/q004_worst_origin_airport_otp_thresholded/gemini/gemini-3.1-pro-preview/run-001/visual.html"
   },
   "metadata": {
     "execution_response_bytes": "3427",
+    "presentation_generation_warning": "exit status 1",
     "visual_validation_errors": "missing footer control block"
   }
 }

@@ -1,7 +1,8 @@
 # {{question_title}}
 
 **Generated:** {{generated_at}}  
-**Rows returned:** {{row_count}}
+**Rows returned:** {{row_count}}  
+**Columns:** {{columns_csv}}
 
 ---
 
@@ -9,42 +10,26 @@
 
 {{data_overview_md}}
 
-This analysis identifies the most intensive single-day operating patterns where one aircraft flew the same flight number across multiple legs. The query captures tail number, carrier, flight number, date, hop count, and the full time-ordered route sequence.
-
 ---
 
-## Analytical Findings
+## Analysis
 
-### Maximum Hop Count
+The dashboard identifies the maximum number of daily hops flown by a single aircraft under one flight number. This pattern emerges when regional or commuter aircraft operate multiple short legs under a single published flight number, creating high-frequency shuttle itineraries.
 
-The highest observed hop count indicates how many distinct leg segments a single aircraft completed in one day under a single flight number. A high count typically represents:
+### Maximum hop count
 
-- **Regional shuttle operations** — carriers cycling aircraft through short-haul corridors
-- **Milk run itineraries** — connecting smaller markets in sequence
-- **Exceptional repositioning** — atypical one-off movements
+The top result shows the highest daily hop count observed in the dataset. A recurring pattern of high hop counts for the same tail number and flight number suggests a scheduled shuttle service rather than a one-off repositioning itinerary. Single occurrences at the maximum level may indicate irregular operations or charter-style routing.
 
-If the same hop count appears across multiple rows, it suggests a **repeatable operating pattern** rather than a unique scheduling anomaly.
+### Most recent maximum-hop itinerary
 
-### Lead Itinerary Context
+The first row in the result set represents the most recent date among all maximum-hop itineraries. The route column shows the full sequence of departures with local times and airport codes, providing visibility into the operational rhythm of that day's service.
 
-The most recent itinerary among the maximum-hop rows provides a concrete example of when and how the pattern occurred. The route field reveals the full airport sequence and departure times, enabling geographic and temporal interpretation.
+### Route repetition and clustering
 
-### Route Repetition and Clustering
-
-Examining the top 10 longest itineraries can reveal:
-
-- Whether the same carrier or tail number dominates the list
-- Whether specific airport pairs or corridors recur
-- Whether geographic clusters (e.g., regional hubs) appear across multiple itineraries
+Examine whether the same tail number and flight number appear on multiple dates at or near the maximum hop count. Repeated appearances indicate a stable operating schedule. If different aircraft or flight numbers dominate the list, the high-hop pattern is distributed across the network rather than concentrated on a single shuttle corridor.
 
 ---
 
 ## Result Data
 
 {{result_table_md}}
-
----
-
-## Columns
-
-`{{columns_csv}}`

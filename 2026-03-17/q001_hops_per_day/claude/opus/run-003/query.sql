@@ -1,3 +1,5 @@
+SELECT Code, Latitude, Longitude FROM default.airports_bts WHERE Code IN ('ISP','BWI','MYR','BNA','VPS','DAL','LAS','OAK','SEA','CLE','PNS','HOU','MCI','PHX','BUR','DEN','ELP','LIT','ATL','RIC','MDW','SAN','MSY','CMH','RDU','DTW','LAX');
+
 WITH flight_legs AS (
     SELECT
         Tail_Number,

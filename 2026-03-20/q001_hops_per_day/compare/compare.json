@@ -1,0 +1,187 @@
+{
+  "generated_at": "2026-03-20T12:22:07Z",
+  "day": "2026-03-20",
+  "question": "q001",
+  "warnings": [
+    "claude/opus/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log",
+    "claude/sonnet/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log",
+    "codex/gpt-5.4/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
+  ],
+  "runs": [
+    {
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001",
+      "run_id": "run-001",
+      "run_number": 1,
+      "question_id": "q001",
+      "question_slug": "q001_hops_per_day",
+      "question_title": "Highest daily hops for one aircraft on one flight number",
+      "dataset": "ontime",
+      "runner": "claude",
+      "model": "opus",
+      "status": "ok",
+      "phases": {
+        "sql_generation": "ok",
+        "sql_execution": "ok",
+        "presentation_generation": "ok",
+        "presentation_render": "ok"
+      },
+      "started_at": "2026-03-20T10:08:18.914157Z",
+      "finished_at": "2026-03-20T10:12:19.413301Z",
+      "duration_sec": 240,
+      "query_sha256": "f110f3a57465d2e6bf539b3d38aae85554d485c00b16ae644a2cda998e2f22e6",
+      "row_count": 10,
+      "columns": [
+        "Tail_Number",
+        "Flight_Number_Reporting_Airline",
+        "IATA_CODE_Reporting_Airline",
+        "FlightDate",
+        "Hops",
+        "Route",
+        "DepTimes"
+      ],
+      "artifacts": {
+        "query_sql": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql"
+        },
+        "report_md": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/report.md",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-001%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json"
+        },
+        "visual_html": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html"
+        }
+      },
+      "warnings": [
+        "claude/opus/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
+      ]
+    },
+    {
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001",
+      "run_id": "run-001",
+      "run_number": 1,
+      "question_id": "q001",
+      "question_slug": "q001_hops_per_day",
+      "question_title": "Highest daily hops for one aircraft on one flight number",
+      "dataset": "ontime",
+      "runner": "claude",
+      "model": "sonnet",
+      "status": "ok",
+      "phases": {
+        "sql_generation": "ok",
+        "sql_execution": "ok",
+        "presentation_generation": "ok",
+        "presentation_render": "ok"
+      },
+      "started_at": "2026-03-20T09:54:36.271134Z",
+      "finished_at": "2026-03-20T10:00:07.830621Z",
+      "duration_sec": 331,
+      "query_sha256": "d6f0579e4e56b0755522f1088d8e268f6e0c69cd655dfc21abeb88a5f97134e3",
+      "row_count": 10,
+      "columns": [
+        "Tail_Number",
+        "Flight_Number_Reporting_Airline",
+        "Carrier",
+        "FlightDate",
+        "Hops",
+        "Route",
+        "DepartureTimes"
+      ],
+      "artifacts": {
+        "query_sql": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql"
+        },
+        "report_md": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/report.md",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fsonnet%2Frun-001%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json"
+        },
+        "visual_html": {
+          "local_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html",
+          "published_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html"
+        }
+      },
+      "warnings": [
+        "claude/sonnet/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
+      ]
+    },
+    {
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001",
+      "run_id": "run-001",
+      "run_number": 1,
+      "question_id": "q001",
+      "question_slug": "q001_hops_per_day",
+      "question_title": "Highest daily hops for one aircraft on one flight number",
+      "dataset": "ontime",
+      "runner": "codex",
+      "model": "gpt-5.4",
+      "status": "partial",
+      "phases": {
+        "sql_generation": "ok",
+        "sql_execution": "ok",
+        "presentation_generation": "ok",
+        "presentation_render": "failed"
+      },
+      "started_at": "2026-03-20T11:56:29.939472Z",
+      "finished_at": "2026-03-20T12:12:52.902164Z",
+      "duration_sec": 982,
+      "query_sha256": "3bf232d62adc070ca98b7586997488a7b8ab64861749966e7511c9a2294220b6",
+      "row_count": 10,
+      "columns": [
+        "Aircraft ID",
+        "Flight Number",
+        "Carrier",
+        "Date",
+        "Hops",
+        "Route",
+        "Departure Times From Origin",
+        "Max Hops Overall",
+        "Max Hop Itinerary Count",
+        "Same-Hops Route Count",
+        "Route Frequency In Top 10"
+      ],
+      "artifacts": {
+        "query_sql": {
+          "local_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql",
+          "published_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql"
+        },
+        "report_md": {
+          "local_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/report.md",
+          "published_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-001%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json",
+          "published_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json"
+        },
+        "visual_html": {
+          "local_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html",
+          "published_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html"
+        }
+      },
+      "warnings": [
+        "codex/gpt-5.4/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
+      ]
+    }
+  ]
+}

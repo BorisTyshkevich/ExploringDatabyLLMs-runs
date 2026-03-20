@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+
+./scripts/gforge process-visual -v --run-dir "$@"
+

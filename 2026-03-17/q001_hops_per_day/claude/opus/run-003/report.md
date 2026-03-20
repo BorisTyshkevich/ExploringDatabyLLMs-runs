@@ -1,7 +1,8 @@
 # Highest daily hops for one aircraft on one flight number
 
 **Generated:** 2026-03-17T15:21:52Z  
-**Rows returned:** 10
+**Rows returned:** 10  
+**Columns:** Aircraft ID, Flight Number, Carrier, Date, Hops, Route
 
 ---
 
@@ -12,33 +13,23 @@
 - Columns: Aircraft ID, Flight Number, Carrier, Date, Hops, Route
 - First row snapshot: Aircraft ID=N957WN, Flight Number=366, Carrier=WN
 
-This analysis identifies the most intensive single-day operating patterns where one aircraft flew the same flight number across multiple legs. The query captures tail number, carrier, flight number, date, hop count, and the full time-ordered route sequence.
-
 ---
 
-## Analytical Findings
+## Analysis
 
-### Maximum Hop Count
+The dashboard identifies the maximum number of daily hops flown by a single aircraft under one flight number. This pattern emerges when regional or commuter aircraft operate multiple short legs under a single published flight number, creating high-frequency shuttle itineraries.
 
-The highest observed hop count indicates how many distinct leg segments a single aircraft completed in one day under a single flight number. A high count typically represents:
+### Maximum hop count
 
-- **Regional shuttle operations** — carriers cycling aircraft through short-haul corridors
-- **Milk run itineraries** — connecting smaller markets in sequence
-- **Exceptional repositioning** — atypical one-off movements
+The top result shows the highest daily hop count observed in the dataset. A recurring pattern of high hop counts for the same tail number and flight number suggests a scheduled shuttle service rather than a one-off repositioning itinerary. Single occurrences at the maximum level may indicate irregular operations or charter-style routing.
 
-If the same hop count appears across multiple rows, it suggests a **repeatable operating pattern** rather than a unique scheduling anomaly.
+### Most recent maximum-hop itinerary
 
-### Lead Itinerary Context
+The first row in the result set represents the most recent date among all maximum-hop itineraries. The route column shows the full sequence of departures with local times and airport codes, providing visibility into the operational rhythm of that day's service.
 
-The most recent itinerary among the maximum-hop rows provides a concrete example of when and how the pattern occurred. The route field reveals the full airport sequence and departure times, enabling geographic and temporal interpretation.
+### Route repetition and clustering
 
-### Route Repetition and Clustering
-
-Examining the top 10 longest itineraries can reveal:
-
-- Whether the same carrier or tail number dominates the list
-- Whether specific airport pairs or corridors recur
-- Whether geographic clusters (e.g., regional hubs) appear across multiple itineraries
+Examine whether the same tail number and flight number appear on multiple dates at or near the maximum hop count. Repeated appearances indicate a stable operating schedule. If different aircraft or flight numbers dominate the list, the high-hop pattern is distributed across the network rather than concentrated on a single shuttle corridor.
 
 ---
 
@@ -56,9 +47,3 @@ Examining the top 10 longest itineraries can reveal:
 | N8631A | 2787 | WN | 2022-10-23T00:00:00Z | 8 | 06:08 MSY → 09:44 ATL → 11:56 CMH → 13:54 BWI → 15:53 RDU → 17:29 BNA → 20:45 DTW → 21:49 MDW → LAX |
 | N8809L | 2787 | WN | 2022-10-02T00:00:00Z | 8 | 06:10 MSY → 09:17 ATL → 11:42 CMH → 13:55 BWI → 15:36 RDU → 17:16 BNA → 20:40 DTW → 21:47 MDW → LAX |
 | N8811L | 2787 | WN | 2022-09-25T00:00:00Z | 8 | 06:01 MSY → 09:18 ATL → 11:41 CMH → 13:47 BWI → 15:39 RDU → 17:24 BNA → 21:12 DTW → 22:42 MDW → LAX |
-
----
-
-## Columns
-
-`Aircraft ID, Flight Number, Carrier, Date, Hops, Route`

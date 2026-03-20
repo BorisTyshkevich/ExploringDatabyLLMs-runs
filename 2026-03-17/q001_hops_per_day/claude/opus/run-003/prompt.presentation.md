@@ -1,5 +1,6 @@
 You are running inside qforge.
 
+Generate valid ClickHouse SQL.
 Use the configured MCP server for all data access.
 Do not construct raw OpenAPI URLs manually.
 Stay within the configured dataset scope.
@@ -115,40 +116,39 @@ Question-specific visual guidance:
 
 The page must:
 
-- use Leaflet with a slippy map and remote basemap tiles
-- show the lead itinerary returned by the primary query and parse its `Route` string in JavaScript
+- show a lead-itinerary map that remains present even before airport-coordinate enrichment succeeds
+- treat the first row returned by the primary query as the default selected itinerary on initial load
 - derive hop count, stop sequence, and repeated-route comparisons from the result set
 - run an explicit airport-coordinate enrichment query against `default.airports_bts` using airport codes parsed from the route strings
 - label the map as airport-coordinate enrichment in the query ledger
-- use enrichment results to place airport markers and route lines for the lead itinerary
-- include KPI cards for tail number, flight number, date, hop count, and route repetition context
-- include a legend and a route table or route sequence panel below the map
-- if enrichment fails, report the degraded map in the ledger and continue rendering the non-map analysis
+- reuse the enrichment results for any itinerary selected from the primary result set without issuing a new per-click enrichment query
+- include KPI cards for tail number, flight number, date, hop count, and route repetition context, with the date shown as its own visible KPI value
+- keep the KPI strip anchored to the top-ranked result even when the selected itinerary changes
+- include a legend plus both a route sequence/detail panel and an itinerary table below the map
+- make itinerary table rows clickable so selecting a row redraws the map and refreshes the route sequence/detail panel for that itinerary
+- show a clear active-row state for the selected itinerary that is distinct from simple hover styling
+- if enrichment fails or the selected itinerary lacks enough coordinates, keep the map card visible with degraded-state messaging for that selected itinerary, report the degraded map in the ledger, and continue rendering the non-map analysis
 
-Dynamic-mode requirements:
+Dynamic-mode additions:
 
-- The dashboard must execute the saved SQL in the browser via MCP OpenAPI using a browser-stored JWE token as the primary analytical query.
-- Additional browser queries are allowed only for explicit enrichment or drill-down purposes that materially improve the visualization and stay within dataset constraints.
-- Keep every browser query visible in a single query ledger that includes purpose, role, status, row count where available, and the full SQL text.
-- Include a dedicated footer control block at the very end of the page containing the token input, SQL textarea, fetch action, forget-token action, and status text.
-- Use browser `localStorage` key `OnTimeAnalystDashboard::auth::jwe` for the shared JWE token and prefill the token field from it on page init.
-- Prefill the SQL textarea with the saved SQL shown above and treat it as the primary query source.
-- Normalize fetched `columns` + `rows` into row objects before deriving KPIs, charts, tables, filtering, formatting, and highlights.
-- Treat `count = 0` with `rows = null` as a valid empty result, not a malformed payload.
-- Do not embed analytical `result.json` payloads or CSV snapshots for the main dataset in dynamic mode.
-- Prefer dataset-native dimensions and lookup tables when enrichment is needed; do not hide follow-up queries behind unexplained UI behavior.
-- Normalize temporal fields before rendering or comparisons. If a ClickHouse `Date` may arrive as an ISO timestamp, derive a stable `YYYY-MM-DD` key and reuse it everywhere.
-- If the page uses `<template>` cloning, avoid duplicated fixed `id` values inside cloned content; use scoped selectors or stored element references instead.
-- For Leaflet maps, initialize the map only after the visible container is in layout, or call `invalidateSize()` after reveal.
+- Build the page in dynamic mode using the `ontime-analyst-dashboard` skill contract.
+- Execute the embedded saved SQL in the browser as the primary query.
+- Keep the embedded saved SQL authoritative for the artifact.
+- Surface every browser query in a visible query ledger.
+- Do not embed the primary analytical dataset as `result.json` payloads or CSV snapshots.
+- Keep additional browser queries limited to explicit enrichment or drill-down that materially improves the visualization.
 
 The page must:
 
-- use Leaflet with a slippy map and remote basemap tiles
-- show the lead itinerary returned by the primary query and parse its `Route` string in JavaScript
+- show a lead-itinerary map that remains present even before airport-coordinate enrichment succeeds
+- treat the first row returned by the primary query as the default selected itinerary on initial load
 - derive hop count, stop sequence, and repeated-route comparisons from the result set
 - run an explicit airport-coordinate enrichment query against `default.airports_bts` using airport codes parsed from the route strings
 - label the map as airport-coordinate enrichment in the query ledger
-- use enrichment results to place airport markers and route lines for the lead itinerary
-- include KPI cards for tail number, flight number, date, hop count, and route repetition context
-- include a legend and a route table or route sequence panel below the map
-- if enrichment fails, report the degraded map in the ledger and continue rendering the non-map analysis
+- reuse the enrichment results for any itinerary selected from the primary result set without issuing a new per-click enrichment query
+- include KPI cards for tail number, flight number, date, hop count, and route repetition context, with the date shown as its own visible KPI value
+- keep the KPI strip anchored to the top-ranked result even when the selected itinerary changes
+- include a legend plus both a route sequence/detail panel and an itinerary table below the map
+- make itinerary table rows clickable so selecting a row redraws the map and refreshes the route sequence/detail panel for that itinerary
+- show a clear active-row state for the selected itinerary that is distinct from simple hover styling
+- if enrichment fails or the selected itinerary lacks enough coordinates, keep the map card visible with degraded-state messaging for that selected itinerary, report the degraded map in the ledger, and continue rendering the non-map analysis
