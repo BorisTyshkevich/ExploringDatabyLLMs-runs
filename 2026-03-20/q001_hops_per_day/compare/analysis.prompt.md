@@ -72,27 +72,22 @@ Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-20T12:22:07Z`
+- Generated: `2026-03-20T12:40:44Z`
 - Day: `2026-03-20`
 - Question: `q001`
-- Warnings: `3`
 
 ## q001: Highest daily hops for one aircraft on one flight number
 
 - Status: 1 run(s) did not finish cleanly: codex/gpt-5.4/run-001.
 - Row counts: all runs returned 10 rows.
-- Warnings: 3.
+- Fastest successful run: claude/opus/run-001 at 4.37 s.
+- Lowest read volume: claude/sonnet/run-001 at 193,061,941 rows.
+- Lowest memory usage: claude/opus/run-001 at 24.9 GiB.
 | runner | model | run | status | rows | duration | read rows | memory | warnings |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| claude | opus | run-001 | ok | 10 | n/a | n/a | n/a | 1 |
-| claude | sonnet | run-001 | ok | 10 | n/a | n/a | n/a | 1 |
-| codex | gpt-5.4 | run-001 | partial | 10 | n/a | n/a | n/a | 1 |
-
-### Warnings
-
-- claude/opus/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log
-- claude/sonnet/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log
-- codex/gpt-5.4/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log
+| claude | opus | run-001 | ok | 10 | 4.37 s | 386,123,882 | 24.9 GiB | 0 |
+| claude | sonnet | run-001 | ok | 10 | 7.36 s | 193,061,941 | 41.2 GiB | 0 |
+| codex | gpt-5.4 | run-001 | partial | 10 | 19.50 s | 579,185,823 | 50.1 GiB | 0 |
 
 Your job:
 

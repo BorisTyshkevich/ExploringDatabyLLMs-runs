@@ -1,12 +1,7 @@
 {
-  "generated_at": "2026-03-20T12:22:07Z",
+  "generated_at": "2026-03-20T12:40:44Z",
   "day": "2026-03-20",
   "question": "q001",
-  "warnings": [
-    "claude/opus/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log",
-    "claude/sonnet/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log",
-    "codex/gpt-5.4/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
-  ],
   "runs": [
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001",
@@ -39,6 +34,17 @@
         "Route",
         "DepTimes"
       ],
+      "metrics": {
+        "query_duration_ms": 4370,
+        "read_rows": 386123882,
+        "read_bytes": 4616445090,
+        "result_rows": 10,
+        "result_bytes": 93590,
+        "memory_usage": 26684739861,
+        "peak_threads": 35,
+        "event_time": "2026-03-20 10:09:50",
+        "type": "QueryFinish"
+      },
       "artifacts": {
         "query_sql": {
           "local_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql",
@@ -60,10 +66,7 @@
           "published_path": "2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html",
           "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html"
         }
-      },
-      "warnings": [
-        "claude/opus/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
-      ]
+      }
     },
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001",
@@ -96,6 +99,17 @@
         "Route",
         "DepartureTimes"
       ],
+      "metrics": {
+        "query_duration_ms": 7360,
+        "read_rows": 193061941,
+        "read_bytes": 3229614271,
+        "result_rows": 10,
+        "result_bytes": 31792,
+        "memory_usage": 44260773909,
+        "peak_threads": 34,
+        "event_time": "2026-03-20 09:56:28",
+        "type": "QueryFinish"
+      },
       "artifacts": {
         "query_sql": {
           "local_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql",
@@ -117,10 +131,7 @@
           "published_path": "2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html",
           "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html"
         }
-      },
-      "warnings": [
-        "claude/sonnet/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
-      ]
+      }
     },
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001",
@@ -157,6 +168,17 @@
         "Same-Hops Route Count",
         "Route Frequency In Top 10"
       ],
+      "metrics": {
+        "query_duration_ms": 19504,
+        "read_rows": 579185823,
+        "read_bytes": 5822310517,
+        "result_rows": 10,
+        "result_bytes": 13698,
+        "memory_usage": 53832017641,
+        "peak_threads": 35,
+        "event_time": "2026-03-20 12:01:47",
+        "type": "QueryFinish"
+      },
       "artifacts": {
         "query_sql": {
           "local_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql",
@@ -178,10 +200,7 @@
           "published_path": "2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html",
           "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html"
         }
-      },
-      "warnings": [
-        "codex/gpt-5.4/run-001: failed to fetch query_log metrics: execute query: Query execution failed: failed to execute query: code: 497, message: demo: Not enough privileges. To execute this query, it's necessary to have the grant SELECT(log_comment, query_id, query_duration_ms, read_rows, read_bytes, result_rows, result_bytes, memory_usage, peak_threads_usage, query, event_time, type, event_time_microseconds) ON system.query_log"
-      ]
+      }
     }
   ]
 }
