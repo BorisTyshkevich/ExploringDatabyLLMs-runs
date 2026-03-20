@@ -6,17 +6,18 @@ usage() {
   cat <<'EOF'
 Usage: scripts/compare QUESTION [DATE]
 
-Regenerate compare artifacts for one question and push them to the
-ExploringDatabyLLMs-runs repo.
+Regenerate compare artifacts for one question, stage the compare outputs
+plus any changed or newly created run directories for that question/day,
+and push them to the ExploringDatabyLLMs-runs repo.
 
 Arguments:
   QUESTION   Question id like q001 or q003
   DATE       Optional day in YYYY-MM-DD format (defaults to today)
 
 Environment:
-  QFORGE_RUNNER   Compare runner to use (default: codex)
+  QFORGE_RUNNER   Compare runner to use (default: claude)
   QFORGE_MODEL    Optional compare model override
-  QFORGE_VERBOSE  Set to 1 to pass -v to qforge compare
+  QFORGE_VERBOSE  Set to 1 to pass -v to qforge compare (default)
 EOF
 }
 
@@ -32,9 +33,9 @@ fi
 
 question="$1"
 day="${2:-$(date +%F)}"
-runner="${QFORGE_RUNNER:-codex}"
+runner="${QFORGE_RUNNER:-claude}"
 model="${QFORGE_MODEL:-}"
-verbose="${QFORGE_VERBOSE:-0}"
+verbose="${QFORGE_VERBOSE:-1}"
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 runs_repo="$(cd "${script_dir}/.." && pwd)"
@@ -78,6 +79,7 @@ artifacts=(
   "$question_dir/compare/analysis.prompt.md"
   "$question_dir/compare/analysis.raw.md"
   "$question_dir/compare/compare.json"
+  "$question_dir/compare/compare_report.md"
   "$question_dir/compare/provider.raw.md"
   "$question_dir/compare_report.md"
 )
@@ -90,13 +92,36 @@ for path in "${artifacts[@]}"; do
 done
 
 if [[ ${#existing_artifacts[@]} -eq 0 ]]; then
-  echo "No compare artifacts found to stage under $question_dir" >&2
-  exit 1
+  echo "[compare-push] no compare artifacts found under $question_dir"
 fi
 
 cd "$runs_repo"
 
-git add -- "${existing_artifacts[@]}"
+run_dirs_to_stage=()
+while IFS= read -r status_line; do
+  [[ -z "$status_line" ]] && continue
+  path="${status_line:3}"
+  if [[ "$path" =~ ^\"(.*)\"$ ]]; then
+    path="${BASH_REMATCH[1]}"
+  fi
+  if [[ "$path" != ${day}/${question}_* ]]; then
+    continue
+  fi
+  if [[ "$path" =~ ^(${day}/${question}_[^/]+/[^/]+/[^/]+/run-[^/]+)($|/) ]]; then
+    run_dirs_to_stage+=("${BASH_REMATCH[1]}")
+  fi
+done < <(git status --porcelain --untracked-files=all -- "${day}/${question}_"*)
+
+if [[ ${#existing_artifacts[@]} -gt 0 ]]; then
+  git add -- "${existing_artifacts[@]}"
+fi
+
+if [[ ${#run_dirs_to_stage[@]} -gt 0 ]]; then
+  mapfile -t unique_run_dirs < <(printf '%s\n' "${run_dirs_to_stage[@]}" | sort -u)
+  git add -- "${unique_run_dirs[@]}"
+else
+  unique_run_dirs=()
+fi
 
 if git diff --cached --quiet; then
   echo "[compare-push] no staged changes for $question on $day"
@@ -109,3 +134,6 @@ git push origin main
 
 echo "[compare-push] pushed:"
 printf '  %s\n' "${existing_artifacts[@]}"
+if [[ ${#unique_run_dirs[@]} -gt 0 ]]; then
+  printf '  %s\n' "${unique_run_dirs[@]}"
+fi
