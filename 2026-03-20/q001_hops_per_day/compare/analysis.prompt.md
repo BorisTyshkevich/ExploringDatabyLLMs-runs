@@ -16,8 +16,7 @@ Primary structured compare artifact:
 
 Question files:
 
-- SQL question prompt: `prompts/q001_hops_per_day/prompt.md` (`https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/prompt.md`)
-- Report prompt: `prompts/q001_hops_per_day/report_prompt.md` (`https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/report_prompt.md`)
+- Question prompt: `prompts/q001_hops_per_day/report_prompt.md` (`https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/report_prompt.md`)
 - Visual prompt: `prompts/q001_hops_per_day/visual_prompt.md` (`https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/visual_prompt.md`)
 - Compare contract: `prompts/q001_hops_per_day/compare.yaml` (`https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/compare.yaml`)
 
@@ -37,57 +36,66 @@ Published run artifact links to use in the final Markdown:
 - `run-001`
   - Published links: query.sql: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql | report.md: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-001%2Freport.md | result.json: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json | visual.html: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html
   - Local verification: `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/report.md`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html`
+- `run-002`
+  - Published links: query.sql: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/query.sql | report.md: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-002%2Freport.md | result.json: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/result.json | visual.html: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/visual.html
+  - Local verification: `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/query.sql`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/report.md`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/result.json`, `2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/visual.html`
 
 Run directories:
 
 - 2026-03-20/q001_hops_per_day/claude/opus/run-001
 - 2026-03-20/q001_hops_per_day/claude/sonnet/run-001
 - 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001
+- 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002
 
 Query SQL files:
 
 - 2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql
 - 2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql
 - 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql
+- 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/query.sql
 
 Report Markdown files:
 
 - 2026-03-20/q001_hops_per_day/claude/opus/run-001/report.md
 - 2026-03-20/q001_hops_per_day/claude/sonnet/run-001/report.md
 - 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/report.md
+- 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/report.md
 
 Visual HTML files:
 
 - 2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html
 - 2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html
 - 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html
+- 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/visual.html
 
 Result JSON files:
 
 - 2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json
 - 2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json
 - 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json
+- 2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/result.json
 
 Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-20T12:40:44Z`
+- Generated: `2026-03-20T14:18:32Z`
 - Day: `2026-03-20`
 - Question: `q001`
 
 ## q001: Highest daily hops for one aircraft on one flight number
 
-- Status: 1 run(s) did not finish cleanly: codex/gpt-5.4/run-001.
+- Status: 2 run(s) did not finish cleanly: codex/gpt-5.4/run-001, codex/gpt-5.4/run-002.
 - Row counts: all runs returned 10 rows.
 - Fastest successful run: claude/opus/run-001 at 4.37 s.
 - Lowest read volume: claude/sonnet/run-001 at 193,061,941 rows.
 - Lowest memory usage: claude/opus/run-001 at 24.9 GiB.
-| runner | model | run | status | rows | duration | read rows | memory | warnings |
-| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| claude | opus | run-001 | ok | 10 | 4.37 s | 386,123,882 | 24.9 GiB | 0 |
-| claude | sonnet | run-001 | ok | 10 | 7.36 s | 193,061,941 | 41.2 GiB | 0 |
-| codex | gpt-5.4 | run-001 | partial | 10 | 19.50 s | 579,185,823 | 50.1 GiB | 0 |
+| runner | model | run | status | rows | sql gen | visual gen | query time | read rows | memory | warnings |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| claude | opus | run-001 | ok | 10 | 87.05 s | 313.33 s | 4.37 s | 386,123,882 | 24.9 GiB | 0 |
+| claude | sonnet | run-001 | ok | 10 | 104.05 s | 352.80 s | 7.36 s | 193,061,941 | 41.2 GiB | 0 |
+| codex | gpt-5.4 | run-001 | partial | 10 | 297.21 s | 645.69 s | 19.50 s | 579,185,823 | 50.1 GiB | 0 |
+| codex | gpt-5.4 | run-002 | partial | 10 | 425.21 s | 636.04 s | 32.10 s | 772,328,680 | 43.9 GiB | 0 |
 
 Your job:
 
