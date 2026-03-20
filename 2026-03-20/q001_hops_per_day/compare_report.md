@@ -1,138 +1,109 @@
 # q001 Experiment Note
 
+**Day:** 2026-03-20 | **Question:** q001 — Highest daily hops for one aircraft on one flight number
+
 ## Question
 
-**q001 -- Highest daily hops for one aircraft on one flight number**
+Find the aircraft+flight-number combinations that logged the most legs ("hops") in a single calendar day across the entire `ontime.ontime` dataset. Return the top 10 by hop count (descending), with the full route chain and departure times.
 
-Find the highest number of hops (legs) a single aircraft flies in one day under the same flight number. Return the top 10 longest and most recent itineraries with Aircraft ID, Flight Number, Carrier, Date, Route (with every airport), and actual departure times in chronological leg order. Explain whether the maximum hop count is a recurring pattern or a one-off, identify the most recent maximum-hop itinerary, and note any route repetition or clustering in the top 10.
-
-([full prompt](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/report_prompt.md) ·
-[visual prompt](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/visual_prompt.md) ·
-[compare contract](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/compare.yaml))
+Prompt: [`report_prompt.md`](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/report_prompt.md) | Visual prompt: [`visual_prompt.md`](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/visual_prompt.md) | Compare contract: [`compare.yaml`](https://github.com/boristyshkevich/ExploringDatabyLLMs/blob/main/prompts/q001_hops_per_day/compare.yaml)
 
 ## Why this question is useful
 
-This question exercises several non-trivial SQL capabilities at once: self-joining or grouping flight legs by (aircraft, flight number, date), ordering legs chronologically, assembling a textual route from array functions, and ranking the results. It tests whether an LLM can reason about the physical meaning of "hop" in an airline context, handle ClickHouse-specific array manipulation (`groupArray`, `arraySort`, `arrayStringConcat`), and produce an output that is both correct and human-readable. The answer also reveals real operational patterns -- Southwest Airlines' distinctive multi-stop through-flights -- making it a good litmus test for domain insight in the generated report.
+It exercises several SQL skills at once: grouping by a composite key (tail number + flight number + date), counting legs, then reconstructing ordered route chains with `groupArray` / `arraySort`. It also tests whether a model adds sensible filters (cancelled flights, null departure times, diverted flights) and whether it can keep read volume low through single-pass aggregation versus multi-pass JOINs.
 
 ## Experiment setup
 
-- **Date:** 2026-03-20
-- **Dataset:** `ontime.ontime` (Altinity ClickHouse demo)
-- **Runners / models (4 runs total):**
-  - `claude/opus` -- run-001
-  - `claude/sonnet` -- run-001
-  - `codex/gpt-5.4` -- run-001, run-002
+Five runs across three model variants, all querying the same ClickHouse `ontime.ontime` table via the qforge harness:
 
-Each run independently generated SQL from the prompt, executed it against ClickHouse, then generated a Markdown report and an interactive HTML visualization.
+| Provider | Model | Run | Notes |
+|----------|-------|-----|-------|
+| claude | opus | run-001 | Full pipeline (SQL + report + visual) |
+| claude | opus | run-002 | SQL + report only (visual skipped) |
+| claude | sonnet | run-001 | Full pipeline |
+| codex | gpt-5.4 | run-001 | Full pipeline, visual render failed |
+| codex | gpt-5.4 | run-002 | Full pipeline, visual render failed |
 
 ## Result summary
 
-**All four runs agree on the core answer:** the maximum daily hop count is **8**, every top-10 entry belongs to **Southwest Airlines (WN)**, and the same 10 (tail number, flight number, date) tuples appear in every result set. The underlying airports and departure times match across all runs.
+**All five runs agree on the answer.** Every run returns 10 rows, all with Hops = 8, all Southwest Airlines (WN). The same 10 (tail number, flight number, date) tuples appear in every result set in the same order. The top entry across all runs is N957WN / WN 366 on 2024-12-01 flying ISP through SEA in 8 legs.
 
-The runs differ in column naming, route string formatting, the number of extra analytic columns returned, and whether diverted flights are excluded. Two codex/gpt-5.4 runs finished with `partial` status because their HTML visualizations failed to render, though their SQL execution and report generation completed successfully.
+The differences between runs are limited to cosmetic formatting of routes and departure times, extra analytical columns in the codex runs, and column naming conventions. No run disagrees on any factual value.
 
 ## Full SQL artifacts
 
 ### claude / opus
-- **run-001:** [query.sql](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql) · [result.json](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json)
+
+- **run-001:** [`query.sql`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/query.sql) | [`result.json`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-001/result.json)
+- **run-002:** [`query.sql`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-002/query.sql) | [`result.json`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/opus/run-002/result.json)
 
 ### claude / sonnet
-- **run-001:** [query.sql](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql) · [result.json](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json)
+
+- **run-001:** [`query.sql`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/query.sql) | [`result.json`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/result.json)
 
 ### codex / gpt-5.4
-- **run-001:** [query.sql](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql) · [result.json](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json)
-- **run-002:** [query.sql](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/query.sql) · [result.json](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/result.json)
+
+- **run-001:** [`query.sql`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql) | [`result.json`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/result.json)
+- **run-002:** [`query.sql`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/query.sql) | [`result.json`](https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/result.json)
 
 ## Real output differences
 
-**Core data is identical across all four runs.** Every run returns 10 rows with Hops = 8, the same tail numbers, flight numbers, dates, and airport sequences. Verified by comparing all 10 `(Tail_Number, Flight_Number, FlightDate)` tuples and route airport lists in each `result.json`.
+All five runs return **identical factual data** for the core fields: tail number, flight number, carrier (WN), flight date, and hop count (8 for every row). The same 10 itineraries appear in the same order. Verified differences are strictly cosmetic or structural:
 
-Differences are limited to formatting and extra columns:
+**Column naming.** Claude runs use raw schema names (`Tail_Number`, `Flight_Number_Reporting_Airline`); opus/run-002 and sonnet alias the carrier column to `Carrier`. Codex runs rename all columns to human-readable labels (`Aircraft ID`, `Flight Number`, `Carrier`, `Date`).
 
-| Aspect | claude/opus | claude/sonnet | codex/gpt-5.4 run-001 | codex/gpt-5.4 run-002 |
-| --- | --- | --- | --- | --- |
-| Column count | 7 | 7 | 11 | 8 |
-| Route format | `ISP-BWI-MYR-…` (dash) | `ISP → BWI → MYR → …` (arrow) | `ISP -> BWI -> …` (arrow, airports only) | `05:43 ISP->BWI \| 08:10 BWI->MYR \| …` (time+leg pairs) |
-| Departure times | `5:43, 8:10, …` (H:MM, comma) | `0543 (ISP), 0810 (BWI), …` (HHMM + airport) | `05:43 ISP \| 08:10 BWI \| …` (HH:MM + airport) | embedded in Route column |
-| Carrier column name | `IATA_CODE_Reporting_Airline` | `Carrier` | `Carrier` | `Carrier` |
-| Extra analytics | none | none | `Max Hops Overall`, `Max Hop Itinerary Count`, `Same-Hops Route Count`, `Route Frequency In Top 10` | `Maximum Hops Observed`, `Maximum-Hop Itinerary Count` |
+**Route formatting.** Dash-separated in opus runs (`ISP-BWI-MYR-...`), arrow-separated in sonnet (`ISP → BWI → MYR → ...`), and leg-pair formatted in codex/run-002 (`05:43 ISP->BWI | 08:10 BWI->MYR | ...`). Codex/run-001 uses `->` between airports with departure times in a separate column.
 
-The codex/gpt-5.4 runs both report `Max Hops Overall` / `Maximum Hops Observed` = 8 and `Max Hop Itinerary Count` / `Maximum-Hop Itinerary Count` = 9,859, providing additional context not present in the Claude runs.
+**Departure time formatting.** Opus/run-001 uses `H:MM` (`5:43, 8:10, ...`), opus/run-002 uses zero-padded HHMM (`0543, 0810, ...`), sonnet annotates each time with its origin airport (`0543 (ISP), 0810 (BWI), ...`), codex/run-001 uses `HH:MM ORIGIN` pipe-delimited (`05:43 ISP | 08:10 BWI | ...`), and codex/run-002 folds departure times into the Route column itself.
+
+**Extra columns.** Both codex runs add `Maximum Hops Observed` (8) and `Maximum-Hop Itinerary Count` (9,859). Codex/run-001 further adds `Same-Hops Route Count` and `Route Frequency In Top 10` via window functions.
 
 ## SQL comparison
 
-All four queries share the same high-level strategy: filter to non-cancelled flights with a valid tail number and departure time, group legs by (tail, flight number, date), count hops, sort descending by hop count then by date, and limit to 10. They diverge in structure, filtering, and route assembly.
+All five queries share the same high-level pattern: filter cancelled flights, group by (tail number, flight number, carrier, date), count legs, reconstruct ordered route chains, order by hops descending, limit 10. They diverge on structure, filtering, and route-building strategy.
 
-**Filtering:**
+**claude/opus/run-001 (3 CTEs, two-pass).** A `legs` CTE filters rows, a `counts` CTE gets the top-10 groups by hop count, then a `top_legs` CTE JOINs back to `legs` to recover per-leg origin/dest for route assembly. The JOIN causes a double scan, reading 386M rows — the highest among the three Claude runs. Route is built with `groupArray(Origin)` plus the last destination appended via `arrayElement`.
 
-| Filter | opus | sonnet | codex run-001 | codex run-002 |
-| --- | --- | --- | --- | --- |
-| `Cancelled = 0` | yes | yes | yes | yes |
-| `Diverted = 0` | no | no | yes | yes |
-| `DepTime IS NOT NULL` | yes | fallback to `CRSDepTime` | yes | yes |
-| `Tail_Number != ''` | yes | yes | yes | yes |
-| `Flight_Number != ''` | no | yes | yes | yes |
-| Min-hops filter | none | `HAVING length >= 2` | none | none |
+**claude/opus/run-002 (2 CTEs, single-pass).** A `legs` CTE feeds a `counted` CTE that does grouping, counting, and route assembly in one pass using `arraySort(x -> x.1, groupArray((DepTime, Origin)))` with a `HAVING Hops >= 2` pre-filter. This halves the read volume to 193M rows. Route uses `argMax(Dest, DepTime)` for the final destination.
 
-The `Diverted = 0` filter in both codex runs excludes diverted flights -- a stricter interpretation that does not affect the top-10 result here but could matter for edge cases. Sonnet's `HAVING length(sorted_legs) >= 2` silently drops single-leg itineraries, which cannot be a "highest hops" candidate anyway.
+**claude/sonnet/run-001 (1 CTE, single-pass).** Groups directly in a `leg_data` CTE using `groupArray` of tuples sorted by `coalesce(DepTime, CRSDepTime, 0)`. The coalesce fallback is a defensive choice not seen in other runs. Adds `Flight_Number_Reporting_Airline != ''` as an extra filter. Also reads 193M rows. Uses `arrayElement(sorted_legs, -1).3` for the last destination.
 
-**Query shape:**
+**codex/gpt-5.4/run-001 (5 CTEs, scalar subqueries + window).** Converts `DepTime` to a full `DateTime`, adds a `Diverted = 0` filter not used by Claude runs, and builds route chains with 4-element tuples. Adds three scalar/window-function columns (`Max Hops Overall`, `Max Hop Itinerary Count`, `Same-Hops Route Count`, `Route Frequency In Top 10`). The extra computed columns and lack of early `HAVING` filter push read volume to 579M rows.
 
-- **opus** uses 3 CTEs: `legs` (flat filter), `counts` (group + ORDER + LIMIT 10), `top_legs` (join back to get individual leg details), then a final GROUP BY to reassemble the route. This two-pass approach (count first, then fetch legs) adds a join but keeps each CTE simple.
-- **sonnet** does everything in a single CTE `leg_data` using `groupArray` with inline `arraySort` by departure time, then a final SELECT with array functions. Most compact query (42 lines).
-- **codex run-001** uses 4 CTEs (`legs`, `itineraries`, `max_hops`, `scored`) plus a `top10` subquery. It adds scalar subqueries for `Max Hops Overall` and `Max Hop Itinerary Count`, and a window function `count() OVER (PARTITION BY …)` for `Same-Hops Route Count` and `Route Frequency In Top 10`. Most complex query (105 lines).
-- **codex run-002** is the most elaborate: it joins `ontime.airports_latest` to obtain UTC offset per origin airport and converts departure times to UTC for chronological sorting. It also uses different column aliases (`TailNum`, `FlightNum`) suggesting a different schema assumption. 102 lines.
-
-**Route assembly:**
-
-All four use `arrayStringConcat` over `groupArray`, but with different formatting. Opus and sonnet produce a linear airport chain; codex run-001 produces the same; codex run-002 embeds departure time and origin->dest per leg into the Route string, losing the separate departure-times column.
+**codex/gpt-5.4/run-002 (4 CTEs, JOIN to airports_latest).** The most complex query. Joins `ontime.airports_latest` to convert departure times to UTC for sorting, using parsed UTC-offset strings. Uses `TailNum`/`FlightNum` column aliases (legacy naming). The airport JOIN and UTC conversion push read volume to 772M rows — the highest of all runs.
 
 ## Presentation artifacts
 
 ### claude / opus
-- **run-001:** [report.md](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-001%2Freport.md) · [visual.html](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html)
-  - Report includes a narrative "Key Finding" section, a "Most Recent Maximum-Hop Itinerary" highlight, and a "Route Repetition and Clustering" analysis. Correctly identifies all three recurring flight numbers (WN 3149 x4, WN 2787 x3, WN 154 x2). Full data table included.
-  - Visual rendered successfully (status: ok).
+
+- **run-001:** [`report.md`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-001%2Freport.md) | [`visual.html`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/opus/run-001/visual.html) — Structured report with Overview, Key Finding, Most Recent Maximum-Hop Itinerary, and Route Repetition sections. Highlights the Southwest point-to-point model. Visual rendered successfully.
+- **run-002:** [`report.md`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-002%2Freport.md) — Similar structure and narrative to run-001 but more concise. Visual generation was skipped for this run.
 
 ### claude / sonnet
-- **run-001:** [report.md](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fsonnet%2Frun-001%2Freport.md) · [visual.html](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html)
-  - Report structure is similar to opus: "Maximum Hop Count", "Operating Pattern", "Top 10 Longest Itineraries" table, and "Route Repetition and Clustering". Also correctly identifies the three recurring clusters and explains the point-to-point scheduling strategy.
-  - Visual rendered successfully (status: ok).
+
+- **run-001:** [`report.md`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fclaude%2Fsonnet%2Frun-001%2Freport.md) | [`visual.html`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/claude/sonnet/run-001/visual.html) — Well-structured report with Maximum Hop Count, Operating Pattern, and Route Repetition sections. Uses blockquote for the top route. Departure times include origin airport codes inline. Visual rendered successfully.
 
 ### codex / gpt-5.4
-- **run-001:** [report.md](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-001%2Freport.md) · [visual.html](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html)
-  - Report is data-table-forward with a brief preamble. Includes extra columns (`Max Hops Overall`, `Same-Hops Route Count`, etc.). Narrative guidance is present but templated rather than fully fleshed out (e.g. "notable route repetition or clustering is the strongest route repetition or clustering pattern visible across the top 10 rows"). Visual render **failed** (status: partial).
-- **run-002:** [report.md](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-002%2Freport.md) · [visual.html](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/visual.html)
-  - Similar table-forward structure to run-001. Route column merges departure times into each leg, making the table wider. Narrative guidance is placeholder-like, not fully expanded. Visual render **failed** (status: partial).
+
+- **run-001:** [`report.md`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-001%2Freport.md) | [`visual.html`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html) — Report is template-like, with placeholder language ("should be interpreted as", "notable route repetition or clustering is") rather than filled-in analysis. Visual render failed (status: partial).
+- **run-002:** [`report.md`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-20%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-002%2Freport.md) | [`visual.html`](https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-20/q001_hops_per_day/codex/gpt-5.4/run-002/visual.html) — Same template-like quality as run-001, with unresolved placeholder phrases. Visual render failed (status: partial).
 
 ## Execution stats
 
-### claude / opus
-- **run-001:** query 4.37 s · 386 M rows read · 4.3 GiB read · 24.9 GiB peak memory · 35 threads · SQL gen 87.0 s · visual gen 313.3 s · total 240 s · status **ok**
+| Provider/Model | Run | Status | Query time | Rows read | Bytes read | Peak memory | SQL gen time | Visual gen time | Total duration |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| claude/opus | run-001 | ok | 4.37 s | 386,123,882 | 4.3 GiB | 24.9 GiB | 87.05 s | 313.33 s | 240 s |
+| claude/opus | run-002 | ok | 14.45 s | 193,061,941 | 2.5 GiB | 48.9 GiB | n/a | n/a | 14 s |
+| claude/sonnet | run-001 | ok | 7.36 s | 193,061,941 | 3.0 GiB | 41.2 GiB | 104.05 s | 352.80 s | 331 s |
+| codex/gpt-5.4 | run-001 | partial | 19.50 s | 579,185,823 | 5.4 GiB | 50.1 GiB | 297.21 s | 645.69 s | 982 s |
+| codex/gpt-5.4 | run-002 | partial | 32.10 s | 772,328,680 | 12.8 GiB | 43.9 GiB | 425.21 s | 636.04 s | 1,099 s |
 
-### claude / sonnet
-- **run-001:** query 7.36 s · 193 M rows read · 3.0 GiB read · 41.2 GiB peak memory · 34 threads · SQL gen 104.0 s · visual gen 352.8 s · total 331 s · status **ok**
-
-### codex / gpt-5.4
-- **run-001:** query 19.50 s · 579 M rows read · 5.4 GiB read · 50.1 GiB peak memory · 35 threads · SQL gen 297.2 s · visual gen 645.7 s · total 982 s · status **partial**
-- **run-002:** query 32.10 s · 772 M rows read · 12.8 GiB read · 43.9 GiB peak memory · 34 threads · SQL gen 425.2 s · visual gen 636.0 s · total 1099 s · status **partial**
-
-**Performance spread:**
-
-| Metric | Best | Worst | Ratio |
-| --- | --- | --- | --- |
-| Query time | opus 4.37 s | codex run-002 32.10 s | 7.3x |
-| Rows read | sonnet 193 M | codex run-002 772 M | 4.0x |
-| Bytes read | sonnet 3.0 GiB | codex run-002 12.8 GiB | 4.2x |
-| Peak memory | opus 24.9 GiB | codex run-001 50.1 GiB | 2.0x |
-| SQL generation | opus 87.0 s | codex run-002 425.2 s | 4.9x |
-
-Sonnet achieved the lowest row scan (193 M) by doing the grouping and array assembly in a single pass with no join-back, reading each row only once. Opus read 2x more rows due to its two-pass join strategy but still executed fastest (4.37 s) thanks to lower memory overhead (24.9 GiB vs sonnet's 41.2 GiB). Codex run-002's join to `airports_latest` for UTC offsets and its more complex sorting logic drove the highest I/O (772 M rows, 12.8 GiB) and longest query time (32.1 s).
+Query execution time spans a 7.3x range: claude/opus/run-001 at 4.37 s versus codex/gpt-5.4/run-002 at 32.10 s. The read-volume spread is 4x (193M to 772M rows), driven primarily by whether the query uses single-pass aggregation with early `HAVING` (opus/run-002, sonnet) versus multi-CTE JOINs and extra table lookups (codex/run-002). SQL generation time shows the widest gap: Claude models produced SQL in 87–104 s while codex took 297–425 s. Both codex runs failed at visual rendering, ending in `partial` status.
 
 ## Takeaway
 
-All four runs produce the correct top-10 answer with identical core data. The question is well-suited for benchmarking because it requires array manipulation, chronological ordering, and domain reasoning -- and every model handled these correctly.
+All five runs converge on the same answer: the maximum daily hops for one aircraft on one flight number is **8**, seen exclusively on Southwest Airlines multi-stop through-flights. The factual agreement is complete — every run identifies the same 10 itineraries in the same order.
 
-The Claude models (opus, sonnet) were substantially faster in both SQL generation (87-104 s vs 297-425 s) and query execution (4-7 s vs 20-32 s), and both produced fully rendered visualizations. Sonnet's single-pass array strategy yielded the most efficient scan; opus's two-pass join was slightly costlier in I/O but lightest on memory.
+The key differentiators are efficiency and presentation quality. The Claude runs produced leaner SQL (193M–386M rows read, 4–14 s query time) and fully rendered reports with genuine analytical narrative. The codex/gpt-5.4 runs generated more complex queries that read 2–4x more data (579M–772M rows), took 3–5x longer to generate SQL, and produced template-like reports with unresolved placeholder language. Both codex runs also failed at visual rendering.
 
-The codex/gpt-5.4 runs added useful analytic columns (global max hops, itinerary counts) that the Claude runs did not, showing a tendency to over-deliver on schema. However, both codex runs failed at the visualization render phase, and their report narratives were more templated than the Claude reports, which provided richer domain commentary on Southwest's multi-stop operating model. Codex run-002's decision to join an airport timezone table was creative but unnecessary for the question's requirements, and it doubled the I/O cost compared to run-001.
+Within the Claude family, opus/run-002's single-pass `arraySort` + `HAVING` approach achieved the lowest read volume (tied with sonnet at 193M rows), while opus/run-001's two-pass JOIN strategy was the fastest wall-clock query (4.37 s) despite reading more data — likely benefiting from ClickHouse parallel execution on the JOIN pattern.

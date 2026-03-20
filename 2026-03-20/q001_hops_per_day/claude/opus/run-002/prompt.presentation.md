@@ -1,4 +1,5 @@
 Connect to clickhouse server though MCP connection 
+Do not use direct HTTP by any tools like curl.
 Generate only the artifacts requested in this prompt.
 Stay within the configured dataset scope.
 
@@ -54,46 +55,43 @@ Visual input summary:
 {
   "question_title": "Highest daily hops for one aircraft on one flight number",
   "result_columns": [
-    "Aircraft ID",
-    "Flight Number",
+    "Tail_Number",
+    "Flight_Number_Reporting_Airline",
     "Carrier",
-    "Date",
+    "FlightDate",
     "Hops",
     "Route",
-    "Maximum Hops Observed",
-    "Maximum-Hop Itinerary Count"
+    "DepTimes"
   ],
   "row_count": 10,
   "sample_rows": [
     {
-      "Aircraft ID": "N957WN",
       "Carrier": "WN",
-      "Date": "2024-12-01T00:00:00Z",
-      "Flight Number": "366",
+      "DepTimes": "0543, 0810, 1020, 1142, 1401, 1643, 1828, 2041",
+      "FlightDate": "2024-12-01T00:00:00Z",
+      "Flight_Number_Reporting_Airline": "366",
       "Hops": 8,
-      "Maximum Hops Observed": 8,
-      "Maximum-Hop Itinerary Count": 9859,
-      "Route": "05:43 ISP-\u003eBWI | 08:10 BWI-\u003eMYR | 10:20 MYR-\u003eBNA | 11:42 BNA-\u003eVPS | 14:01 VPS-\u003eDAL | 16:43 DAL-\u003eLAS | 18:28 LAS-\u003eOAK | 20:41 OAK-\u003eSEA"
+      "Route": "ISP-BWI-MYR-BNA-VPS-DAL-LAS-OAK-SEA",
+      "Tail_Number": "N957WN"
     },
     {
-      "Aircraft ID": "N7835A",
       "Carrier": "WN",
-      "Date": "2024-02-18T00:00:00Z",
-      "Flight Number": "3149",
+      "DepTimes": "0621, 0801, 1007, 1234, 1514, 1747, 1902, 2117",
+      "FlightDate": "2024-02-18T00:00:00Z",
+      "Flight_Number_Reporting_Airline": "3149",
       "Hops": 8,
-      "Maximum Hops Observed": 8,
-      "Maximum-Hop Itinerary Count": 9859,
-      "Route": "06:21 CLE-\u003eBNA | 08:01 BNA-\u003ePNS | 10:07 PNS-\u003eHOU | 12:34 HOU-\u003eMCI | 15:14 MCI-\u003ePHX | 17:47 PHX-\u003eBUR | 19:02 BUR-\u003eOAK | 21:17 OAK-\u003eDEN"
+      "Route": "CLE-BNA-PNS-HOU-MCI-PHX-BUR-OAK-DEN",
+      "Tail_Number": "N7835A"
     }
   ],
   "field_shape_notes": {
-    "Date": "ISO-like timestamp string"
+    "FlightDate": "ISO-like timestamp string"
   },
   "mode_hint": "Dynamic mode still fetches live data in the browser via query.sql and the configured endpoint."
 }
 ```
 
-Create `visual.html` using the `ontime-analyst-dashboard` skill as a downloadable artifact only (no need to display as code block).
+Create `visual.html` using the `ontime-analyst-dashboard` skill.
 
 The returned `visual.html` must be final browser-ready HTML. qforge will not patch or rewrite it after generation.
 
@@ -107,106 +105,60 @@ General visual rules:
 Saved SQL to preserve in the final page contract:
 
 ```sql
-WITH airport_offsets AS
-(
+WITH legs AS (
     SELECT
-        airport_id,
-        any(utc_local_time_variation) AS utc_local_time_variation
-    FROM ontime.airports_latest
-    GROUP BY airport_id
-),
-legs AS
-(
-    SELECT
-        o.FlightDate,
-        o.TailNum,
-        o.FlightNum,
-        o.Carrier,
-        o.OriginAirportID,
-        o.DestAirportID,
-        o.Origin,
-        o.Dest,
-        o.DepTime,
-        toDateTime(o.FlightDate)
-            + toIntervalDay(if(o.DepTime = 2400, 1, 0))
-            + toIntervalMinute(intDiv(if(o.DepTime = 2400, 0, o.DepTime), 100) * 60 + modulo(if(o.DepTime = 2400, 0, o.DepTime), 100)) AS dep_local_ts,
-        (
-            if(length(a1o.utc_local_time_variation) = 5,
-                if(substring(a1o.utc_local_time_variation, 1, 1) = '-', -1, 1)
-                * (toInt32(substring(a1o.utc_local_time_variation, 2, 2)) * 60 + toInt32(substring(a1o.utc_local_time_variation, 4, 2))),
-                0
-            )
-        ) AS origin_offset_minutes
-    FROM ontime.ontime AS o
-    LEFT JOIN airport_offsets AS a1o ON o.OriginAirportID = a1o.airport_id
-    WHERE o.Cancelled = 0
-      AND o.Diverted = 0
-      AND o.DepTime IS NOT NULL
-      AND o.TailNum != ''
-      AND o.FlightNum != ''
-),
-itineraries AS
-(
-    SELECT
+        Tail_Number,
+        Flight_Number_Reporting_Airline,
+        IATA_CODE_Reporting_Airline,
         FlightDate,
-        TailNum,
-        FlightNum,
-        Carrier,
-        length(ordered_legs) AS Hops,
+        Origin,
+        Dest,
+        DepTime
+    FROM ontime.ontime
+    WHERE Tail_Number != ''
+      AND Cancelled = 0
+      AND DepTime IS NOT NULL
+),
+counted AS (
+    SELECT
+        Tail_Number,
+        Flight_Number_Reporting_Airline,
+        IATA_CODE_Reporting_Airline,
+        FlightDate,
+        count() AS Hops,
         arrayStringConcat(
-            arrayMap(x -> concat(formatDateTime(x.2, '%H:%i'), ' ', x.3, '->', x.4), ordered_legs),
-            ' | '
-        ) AS Route
-    FROM
-    (
-        SELECT
-            FlightDate,
-            TailNum,
-            FlightNum,
-            Carrier,
-            arraySort(x -> x.1, groupArray((
-                dep_local_ts - toIntervalMinute(origin_offset_minutes),
-                dep_local_ts,
-                Origin,
-                Dest
-            ))) AS ordered_legs
-        FROM legs
-        GROUP BY
-            FlightDate,
-            TailNum,
-            FlightNum,
-            Carrier
-    )
-),
-max_hops AS
-(
-    SELECT max(Hops) AS max_hops_observed FROM itineraries
-),
-max_hops_counts AS
-(
-    SELECT count() AS max_hop_itinerary_count
-    FROM itineraries
-    CROSS JOIN max_hops
-    WHERE Hops = max_hops_observed
+            arrayConcat(
+                arrayMap(x -> x.2,
+                    arraySort(x -> x.1,
+                        groupArray( (DepTime, Origin) )
+                    )
+                ),
+                [ argMax(Dest, DepTime) ]
+            ),
+            '-'
+        ) AS Route,
+        arrayStringConcat(
+            arrayMap(x -> lpad(toString(x.1), 4, '0'),
+                arraySort(x -> x.1,
+                    groupArray( (DepTime, Origin) )
+                )
+            ),
+            ', '
+        ) AS DepTimes
+    FROM legs
+    GROUP BY Tail_Number, Flight_Number_Reporting_Airline, IATA_CODE_Reporting_Airline, FlightDate
+    HAVING Hops >= 2
 )
 SELECT
-    TailNum AS `Aircraft ID`,
-    FlightNum AS `Flight Number`,
-    Carrier,
-    FlightDate AS Date,
+    Tail_Number,
+    Flight_Number_Reporting_Airline,
+    IATA_CODE_Reporting_Airline AS Carrier,
+    FlightDate,
     Hops,
     Route,
-    max_hops_observed AS `Maximum Hops Observed`,
-    max_hop_itinerary_count AS `Maximum-Hop Itinerary Count`
-FROM itineraries
-CROSS JOIN max_hops
-CROSS JOIN max_hops_counts
-ORDER BY
-    Hops DESC,
-    Date DESC,
-    Carrier,
-    `Flight Number`,
-    `Aircraft ID`
+    DepTimes
+FROM counted
+ORDER BY Hops DESC, FlightDate DESC
 LIMIT 10
 ```
 

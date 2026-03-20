@@ -1,7 +1,7 @@
-The `compare_report.md` has been written. It covers all 11 required sections based on verified local artifacts:
+The report has been written to `compare_report.md`. Here's what it covers:
 
-- **All 4 runs agree** on the same 10 rows (8 hops, all Southwest WN)
-- **Differences** are cosmetic: column naming, route formatting, extra analytic columns in codex runs
-- **SQL strategies** range from sonnet's compact single-CTE (42 lines, 193M rows) to codex run-002's UTC-offset join (102 lines, 772M rows)
-- **Performance**: Claude runs were 4-7x faster in query execution and 3-5x faster in SQL generation
-- **Presentation**: Both Claude runs rendered visuals successfully with substantive narrative; both codex runs failed visual render and produced template-like report text
+- **All 5 runs agree on the answer**: 8 hops max, same 10 Southwest Airlines itineraries, same order
+- **Differences are cosmetic only**: column naming, route separators (`-` vs `→` vs `->`), departure time formatting
+- **SQL strategies diverge significantly**: from 1-CTE single-pass (sonnet) to 5-CTE with window functions and airport JOINs (codex), with read volumes ranging 193M to 772M rows
+- **Performance spread**: 7.3x on query time (4.37 s to 32.10 s), 4x on rows read
+- **Presentation quality gap**: Claude reports contain genuine analysis; codex reports have unresolved template placeholders. Both codex runs failed visual rendering.
