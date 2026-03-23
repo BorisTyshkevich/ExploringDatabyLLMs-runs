@@ -1,8 +1,74 @@
 {
-  "generated_at": "2026-03-23T14:09:08Z",
+  "generated_at": "2026-03-23T14:18:19Z",
   "day": "2026-03-23",
   "question": "q001",
   "runs": [
+    {
+      "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-23/q001_hops_per_day/claude/opus/run-001",
+      "run_id": "run-001",
+      "run_number": 1,
+      "question_id": "q001",
+      "question_slug": "q001_hops_per_day",
+      "question_title": "Highest daily hops for one aircraft on one flight number",
+      "dataset": "ontime",
+      "runner": "claude",
+      "model": "opus",
+      "status": "ok",
+      "phases": {
+        "sql_generation": "ok",
+        "sql_execution": "ok",
+        "presentation_generation": "ok",
+        "presentation_render": "ok"
+      },
+      "started_at": "2026-03-23T14:11:26.31812Z",
+      "finished_at": "2026-03-23T14:17:18.115696Z",
+      "duration_sec": 351,
+      "sql_generation_provider_duration_ms": 92098,
+      "presentation_provider_duration_ms": 221041,
+      "query_sha256": "70b2e656c50911ec31ebc09a785bc5255aa11dd464624a95701d87457a1071ba",
+      "row_count": 10,
+      "columns": [
+        "Aircraft ID",
+        "Flight Number",
+        "Carrier",
+        "Date",
+        "Route",
+        "hop_count"
+      ],
+      "metrics": {
+        "query_duration_ms": 20071,
+        "read_rows": 193061941,
+        "read_bytes": 2650424488,
+        "result_rows": 10,
+        "result_bytes": 29488,
+        "memory_usage": 30203127990,
+        "peak_threads": 34,
+        "event_time": "2026-03-23 14:13:18",
+        "type": "QueryFinish"
+      },
+      "artifacts": {
+        "query_sql": {
+          "local_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/query.sql",
+          "published_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/query.sql",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/claude/opus/run-001/query.sql"
+        },
+        "report_md": {
+          "local_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/report.md",
+          "published_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/report.md",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-23%2Fq001_hops_per_day%2Fclaude%2Fopus%2Frun-001%2Freport.md"
+        },
+        "result_json": {
+          "local_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/result.json",
+          "published_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/result.json",
+          "url": "https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/claude/opus/run-001/result.json"
+        },
+        "visual_html": {
+          "local_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/visual.html",
+          "published_path": "2026-03-23/q001_hops_per_day/claude/opus/run-001/visual.html",
+          "url": "https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-23/q001_hops_per_day/claude/opus/run-001/visual.html"
+        }
+      }
+    },
     {
       "run_dir": "/Users/bvt/work/ExploringDatabyLLMs-runs/2026-03-23/q001_hops_per_day/claude/sonnet/run-001",
       "run_id": "run-001",
