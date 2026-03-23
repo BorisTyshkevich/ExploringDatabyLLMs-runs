@@ -37,47 +37,57 @@ Published run artifact links to use in the final Markdown:
   - Published links: query.sql: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql | report.md: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-23%2Fq001_hops_per_day%2Fcodex%2Fgpt-5.4%2Frun-001%2Freport.md | result.json: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/result.json | visual.html: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html
   - Local verification: `2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql`, `2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/report.md`, `2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/result.json`, `2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html`
 
+### gemini / gemini-3.1-pro-preview
+- `run-002`
+  - Published links: query.sql: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/query.sql | report.md: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/md.html?file=2026-03-23%2Fq001_hops_per_day%2Fgemini%2Fgemini-3.1-pro-preview%2Frun-002%2Freport.md | result.json: https://github.com/boristyshkevich/ExploringDatabyLLMs-runs/blob/main/2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/result.json | visual.html: https://boristyshkevich.github.io/ExploringDatabyLLMs-runs/2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/visual.html
+  - Local verification: `2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/query.sql`, `2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/report.md`, `2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/result.json`, `2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/visual.html`
+
 Run directories:
 
 - 2026-03-23/q001_hops_per_day/claude/opus/run-001
 - 2026-03-23/q001_hops_per_day/claude/sonnet/run-001
 - 2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001
+- 2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002
 
 Query SQL files:
 
 - 2026-03-23/q001_hops_per_day/claude/opus/run-001/query.sql
 - 2026-03-23/q001_hops_per_day/claude/sonnet/run-001/query.sql
 - 2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/query.sql
+- 2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/query.sql
 
 Report Markdown files:
 
 - 2026-03-23/q001_hops_per_day/claude/opus/run-001/report.md
 - 2026-03-23/q001_hops_per_day/claude/sonnet/run-001/report.md
 - 2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/report.md
+- 2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/report.md
 
 Visual HTML files:
 
 - 2026-03-23/q001_hops_per_day/claude/opus/run-001/visual.html
 - 2026-03-23/q001_hops_per_day/claude/sonnet/run-001/visual.html
 - 2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/visual.html
+- 2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/visual.html
 
 Result JSON files:
 
 - 2026-03-23/q001_hops_per_day/claude/opus/run-001/result.json
 - 2026-03-23/q001_hops_per_day/claude/sonnet/run-001/result.json
 - 2026-03-23/q001_hops_per_day/codex/gpt-5.4/run-001/result.json
+- 2026-03-23/q001_hops_per_day/gemini/gemini-3.1-pro-preview/run-002/result.json
 
 Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-23T15:02:24Z`
+- Generated: `2026-03-23T16:20:41Z`
 - Day: `2026-03-23`
 - Question: `q001`
 
 ## q001: Highest daily hops for one aircraft on one flight number
 
-- Status: all runs succeeded.
+- Status: 1 run(s) did not finish cleanly: gemini/gemini-3.1-pro-preview/run-002.
 - Row counts: all runs returned 10 rows.
 - Fastest successful run: claude/sonnet/run-001 at 7.42 s.
 - Lowest read volume: claude/opus/run-001 at 193,061,941 rows.
@@ -87,6 +97,7 @@ Deterministic compare summary:
 | claude | opus | run-001 | ok | 10 | 87.32 s | 207.66 s | 7.54 s | 193,061,941 | 42.8 GiB | 0 |
 | claude | sonnet | run-001 | ok | 10 | 96.34 s | 546.76 s | 7.42 s | 193,061,941 | 42.5 GiB | 0 |
 | codex | gpt-5.4 | run-001 | ok | 10 | 84.22 s | 438.56 s | 7.55 s | 193,061,941 | 41.3 GiB | 0 |
+| gemini | gemini-3.1-pro-preview | run-002 | partial | 10 | 355.11 s | 265.75 s | 14.59 s | 193,061,941 | 48.9 GiB | 0 |
 
 Your job:
 
