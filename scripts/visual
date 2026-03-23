@@ -67,4 +67,4 @@ for ((i = 0; i < ${#args[@]}; i++)); do
   args_with_path+=("${args[i]}")
 done
 
-exec "${script_dir}/gforge" process-visual -v "${args_with_path[@]}"
+exec "${script_dir}/qforge" process-visual -v "${args_with_path[@]}"
