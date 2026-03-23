@@ -43,11 +43,11 @@ WITH legs AS (
         FlightDate,
         OriginCode,
         DestCode,
-        assumeNotNull(CRSDepTime) AS dep_time
+        assumeNotNull(CRSDepTime) AS dep
     FROM ontime.fact_ontime
     WHERE Tail_Number != ''
+      AND Flight_Number_Reporting_Airline != ''
       AND Cancelled = 0
-      AND CRSDepTime IS NOT NULL
 ),
 grouped AS (
     SELECT
@@ -55,8 +55,7 @@ grouped AS (
         Flight_Number_Reporting_Airline,
         IATA_CODE_Reporting_Airline,
         FlightDate,
-        arraySort((x, y) -> y, groupArray(OriginCode), groupArray(dep_time)) AS sorted_origins,
-        arraySort((x, y) -> y, groupArray(DestCode), groupArray(dep_time)) AS sorted_dests,
+        groupArray((dep, OriginCode, DestCode)) AS legs_arr,
         count() AS hop_count
     FROM legs
     GROUP BY Tail_Number, Flight_Number_Reporting_Airline, IATA_CODE_Reporting_Airline, FlightDate
@@ -67,7 +66,13 @@ SELECT
     Flight_Number_Reporting_Airline AS "Flight Number",
     IATA_CODE_Reporting_Airline AS "Carrier",
     FlightDate AS "Date",
-    arrayStringConcat(arrayPushBack(sorted_origins, sorted_dests[hop_count]), ' → ') AS "Route",
+    arrayStringConcat(
+        arrayPushBack(
+            arrayMap(x -> x.2, arraySort(x -> x.1, legs_arr)),
+            arrayElement(arraySort(x -> x.1, legs_arr), -1).3
+        ),
+        '-'
+    ) AS "Route",
     hop_count
 FROM grouped
 ORDER BY hop_count DESC, FlightDate DESC
@@ -93,7 +98,7 @@ Data example/snippet:
       "Carrier": "WN",
       "Date": "2024-12-01T00:00:00Z",
       "Flight Number": "366",
-      "Route": "ISP → BWI → MYR → BNA → VPS → DAL → LAS → OAK → SEA",
+      "Route": "ISP-BWI-MYR-BNA-VPS-DAL-LAS-OAK-SEA",
       "hop_count": 8
     },
     {
@@ -101,7 +106,7 @@ Data example/snippet:
       "Carrier": "WN",
       "Date": "2024-02-18T00:00:00Z",
       "Flight Number": "3149",
-      "Route": "CLE → BNA → PNS → HOU → MCI → PHX → BUR → OAK → DEN",
+      "Route": "CLE-BNA-PNS-HOU-MCI-PHX-BUR-OAK-DEN",
       "hop_count": 8
     }
   ],

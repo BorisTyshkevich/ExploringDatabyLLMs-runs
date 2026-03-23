@@ -4,4 +4,4 @@
 
 {{result_table_md}}
 
-Southwest Airlines (WN) dominates the top results, with single flight numbers covering up to 8 legs coast-to-coast in a single day. These marathon itineraries reflect Southwest's distinctive point-to-point network, where one flight number is reused across a chain of short-haul segments rather than operating as a single origin-destination pair. The recurring route patterns on the same weekday suggest fixed weekly schedules for these multi-hop services.
+Southwest Airlines (WN) exclusively holds the top spots, with single flight numbers covering up to 8 legs coast-to-coast in a single day — a pattern consistent with their point-to-point network model where one aircraft and flight number thread through many cities rather than hub-and-spoke routing.

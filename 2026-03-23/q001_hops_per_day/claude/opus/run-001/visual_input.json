@@ -15,7 +15,7 @@
       "Carrier": "WN",
       "Date": "2024-12-01T00:00:00Z",
       "Flight Number": "366",
-      "Route": "ISP → BWI → MYR → BNA → VPS → DAL → LAS → OAK → SEA",
+      "Route": "ISP-BWI-MYR-BNA-VPS-DAL-LAS-OAK-SEA",
       "hop_count": 8
     },
     {
@@ -23,7 +23,7 @@
       "Carrier": "WN",
       "Date": "2024-02-18T00:00:00Z",
       "Flight Number": "3149",
-      "Route": "CLE → BNA → PNS → HOU → MCI → PHX → BUR → OAK → DEN",
+      "Route": "CLE-BNA-PNS-HOU-MCI-PHX-BUR-OAK-DEN",
       "hop_count": 8
     }
   ],

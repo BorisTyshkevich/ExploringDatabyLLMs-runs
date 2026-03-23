@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-23T14:18:19Z",
+  "generated_at": "2026-03-23T15:02:24Z",
   "day": "2026-03-23",
   "question": "q001",
   "runs": [
@@ -20,12 +20,12 @@
         "presentation_generation": "ok",
         "presentation_render": "ok"
       },
-      "started_at": "2026-03-23T14:11:26.31812Z",
-      "finished_at": "2026-03-23T14:17:18.115696Z",
-      "duration_sec": 351,
-      "sql_generation_provider_duration_ms": 92098,
-      "presentation_provider_duration_ms": 221041,
-      "query_sha256": "70b2e656c50911ec31ebc09a785bc5255aa11dd464624a95701d87457a1071ba",
+      "started_at": "2026-03-23T14:47:05.855787Z",
+      "finished_at": "2026-03-23T14:52:19.370365Z",
+      "duration_sec": 313,
+      "sql_generation_provider_duration_ms": 87320,
+      "presentation_provider_duration_ms": 207662,
+      "query_sha256": "5f921379df7bcc12032cb1635b42bb7b4f9254e8f0049805d050d061e58c8def",
       "row_count": 10,
       "columns": [
         "Aircraft ID",
@@ -36,14 +36,14 @@
         "hop_count"
       ],
       "metrics": {
-        "query_duration_ms": 20071,
+        "query_duration_ms": 7541,
         "read_rows": 193061941,
         "read_bytes": 2650424488,
         "result_rows": 10,
-        "result_bytes": 29488,
-        "memory_usage": 30203127990,
+        "result_bytes": 28976,
+        "memory_usage": 45905918529,
         "peak_threads": 34,
-        "event_time": "2026-03-23 14:13:18",
+        "event_time": "2026-03-23 14:48:41",
         "type": "QueryFinish"
       },
       "artifacts": {

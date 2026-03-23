@@ -71,7 +71,7 @@ Deterministic compare summary:
 
 # qforge Compare Report
 
-- Generated: `2026-03-23T14:18:19Z`
+- Generated: `2026-03-23T15:02:24Z`
 - Day: `2026-03-23`
 - Question: `q001`
 
@@ -81,10 +81,10 @@ Deterministic compare summary:
 - Row counts: all runs returned 10 rows.
 - Fastest successful run: claude/sonnet/run-001 at 7.42 s.
 - Lowest read volume: claude/opus/run-001 at 193,061,941 rows.
-- Lowest memory usage: claude/opus/run-001 at 28.1 GiB.
+- Lowest memory usage: codex/gpt-5.4/run-001 at 41.3 GiB.
 | runner | model | run | status | rows | sql gen | visual gen | query time | read rows | memory | warnings |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| claude | opus | run-001 | ok | 10 | 92.10 s | 221.04 s | 20.07 s | 193,061,941 | 28.1 GiB | 0 |
+| claude | opus | run-001 | ok | 10 | 87.32 s | 207.66 s | 7.54 s | 193,061,941 | 42.8 GiB | 0 |
 | claude | sonnet | run-001 | ok | 10 | 96.34 s | 546.76 s | 7.42 s | 193,061,941 | 42.5 GiB | 0 |
 | codex | gpt-5.4 | run-001 | ok | 10 | 84.22 s | 438.56 s | 7.55 s | 193,061,941 | 41.3 GiB | 0 |
 

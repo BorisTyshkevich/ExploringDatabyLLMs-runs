@@ -1,5 +1,8 @@
-Both files written. Here's a summary:
+Both files written. The query:
 
-**`query.sql`** — Groups legs by aircraft (`Tail_Number`), flight number, carrier, and date. Uses `arraySort` to order legs chronologically by scheduled departure time, then builds the `Route` string by concatenating all origin codes plus the final destination with `→` delimiters. Returns top 10 by hop count (descending), then most recent date.
+- Collects all non-cancelled legs with a valid tail number and flight number
+- Groups by aircraft, flight number, carrier, and date, assembling legs into an array of tuples
+- Sorts legs by scheduled departure time and builds the route string (all origins plus the final destination, joined by `-`)
+- Returns the top 10 by hop count (descending), breaking ties by most recent date
 
-**Results** — All top 10 itineraries have 8 hops, exclusively Southwest Airlines (WN). Flight numbers like 3149 (CLE→DEN), 154 (ELP→SAN), and 2787 (MSY→LAX) each traverse 8 cities coast-to-coast in a single day using the same flight number on different aircraft.
+The results show **8 hops** as the maximum, exclusively by **Southwest Airlines (WN)**, reflecting their multi-stop point-to-point routing model.

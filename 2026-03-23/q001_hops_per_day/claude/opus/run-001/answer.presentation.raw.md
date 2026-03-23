@@ -1,12 +1,12 @@
-`visual.html` is written (764 lines). The dashboard includes:
+The dashboard is ready at `visual.html`. Key features:
 
-- **Header** with title and analytical subtitle
-- **KPI strip** (5 cards): Tail Number, Flight Number, Date, Hop Count, Route Repetition — anchored to the #1-ranked itinerary
-- **Leaflet map** present from initial render, with degraded-state messaging before/if enrichment fails; route segments drawn with numbered midpoint labels, origin/destination highlighted in red, intermediate stops in navy
-- **Legend** below the map
-- **Route Sequence & Details panel** showing airport badge chain, stop count, coordinate info, and repeated-segment analysis
-- **Itinerary table** with clickable rows — active row gets a distinct blue highlight vs hover; clicking redraws the map and route panel for that itinerary
-- **Airport coordinate enrichment** via a single query to `dim_airports`, cached and reused for all row selections
-- **Query ledger** with collapsible SQL for both the primary query and the enrichment query
-- **CSV export** button
-- **Footer** with JWE token input, forget button, SQL textarea, and fetch control
+- **Dynamic mode** — fetches live data via the JWE-authenticated ClickHouse endpoint
+- **Leaflet map** — always present; shows the selected itinerary's route with numbered segments, origin/destination highlighted in red, intermediate stops in navy
+- **Airport coordinate enrichment** — single bulk query against `ontime.dim_airports` for all airports across all 10 rows; cached and reused on row selection (no per-click queries)
+- **KPI strip** — anchored to the top-ranked result: Aircraft, Flight Number, Date, Hop Count, Route Repetition context
+- **Route sequence panel** — visual stop-by-stop display with airport code badges and arrows; updates on row click
+- **Clickable itinerary table** — active-row highlighting distinct from hover; clicking redraws the map and route panel
+- **Degraded map handling** — if enrichment fails or a route lacks coordinates, the map card stays visible with an explanatory message
+- **Query ledger** — primary query + enrichment query, each with expand/collapse SQL, status, and row count
+- **CSV export** and **footer controls** (JWE input, forget, SQL textarea, fetch button)
+- Auto-runs on load if a stored JWE token is found
