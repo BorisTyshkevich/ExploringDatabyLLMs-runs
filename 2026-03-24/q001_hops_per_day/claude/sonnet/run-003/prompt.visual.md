@@ -11,7 +11,7 @@ Create the presentation artifact using the proper `*-analyst-dashboard` skill.
 
 - Question title: `Highest daily hops for one aircraft on one flight number`
 - Visual mode: `dynamic`
-- Presentation target: `html`
+- Presentation target: `react`
 - Visual type: `html_map`
 - Derive KPIs, chart values, table rows, filters, and highlights from the actual analytical data. Do not invent or hardcode them.
 - Respect the declared visual mode and visual type shown below.
@@ -323,6 +323,20 @@ Use this JSON package as the supporting context for the visual:
 - Keep JWE in `localStorage['OnTimeAnalystDashboard::auth::jwe']`.
 - Do not embed the primary analytical dataset as `result.json` payloads or CSV snapshots.
 
-Create browser-ready HTML `visual.html`.
+Create a React source artifact under `visual_src/`, not final HTML source in the response.
 
-Write the file or provide a download link. Do not include the HTML source in the response. Do not open the artifact view frame.
+Required source contract:
+
+- Write browser-only React app source files into `visual_src/`
+- Include at minimum:
+  - `visual_src/package.json`
+  - `visual_src/index.html`
+  - `visual_src/src/main.jsx`
+  - `visual_src/src/App.jsx`
+- You may add `visual_src/src/styles.css`, `visual_src/vite.config.js`, and small supporting files when needed
+- Use a static build flow compatible with GitHub Pages and relative asset paths
+- The build output must target `../visual_build`
+- The built HTML must work when copied to `visual.html` beside a `visual_assets/` directory
+- Do not use server-side rendering, Next.js, routing, or any backend server
+- Do not emit the source code inline in the response
+- Prefer writing the files directly; a download link is acceptable only if the provider cannot write files
